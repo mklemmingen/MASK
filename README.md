@@ -13,6 +13,10 @@ https://github.com/torinmb/mediapipe-touchdesigner/archive/refs/tags/v0.5.0.zip
 
 Extract it, and put the toxes folder in the root of this project, so that the .toe access the toxes folder from its location. It needs access to pose aswell as mediapipe.tox atleast.
 
+we need to install filterpy for the kalman filter by finding the python exe and pip installing.
+On windows, its usually in: C:\Program Files\Derivative\TouchDesigner\bin\python.exe
+Then cmd enter: "C:\Program Files\Derivative\TouchDesigner\bin\python.exe" -m pip install filterpy
+
 For the next step, make sure that when opening the .toe, you have selected the right camera in the mediapipe node and are in frame. Relations will show -1 as a value in its constant nodes if the visibility of the node is under a certain rule based threshold. You might also need to make sure that in the kinect node, it is set to ON.
 
 Using the elongated python script, you can add your own relations if needed. 
