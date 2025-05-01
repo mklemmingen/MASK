@@ -1,0 +1,63 @@
+// Define maximum points (adjust as needed)
+#define MAX_POINTS 33 
+
+// Uniform inputs
+uniform float u_numPoints;           // number of active tracking points
+uniform vec2 u_points[MAX_POINTS]; // array of point coordinates (normalized 0-1 UV)
+uniform float u_strength;          // force strength factor
+uniform float u_mode;                // 0 = attract, 1 = repel
+uniform float u_falloff;           // falloff factor (controls distance decay)
+uniform float u_threshold;         // brightness threshold for blob
+
+out vec4 fragColor;
+
+void main() {
+	// Get current UV coordinate for this pixel
+	vec2 uv = vUV.st;  // assuming vUV is provided 0-1 UV coords for the quad
+	
+	// Sample the input blob texture at this UV
+	vec4 baseColor = texture(sTD2DInputs[0], uv);
+	float lum = baseColor.r;  // grayscale luminance (assuming input is grayscale)
+	
+	// If below brightness threshold, output as-is (likely black background)
+	if (lum < u_threshold) {
+		fragColor = baseColor;
+		return;
+	}
+	
+	// Calculate total displacement from all attractor points
+	vec2 totalDisp = vec2(0.0);
+	for (int i = 0; i < u_numPoints && i < MAX_POINTS; ++i) {
+		vec2 pointPos = u_points[i];
+		// Vector from current pixel to attractor
+		vec2 diff = pointPos - uv;
+		float dist = length(diff);
+		if (dist < 1e-6) continue;  // skip if on the exact point to avoid singularity
+		
+		// Unit direction vector and force magnitude with distance falloff
+		vec2 dir = diff / dist;
+		float force = u_strength / (1.0 + u_falloff * dist);
+		
+		// Add or subtract displacement based on mode
+		if (u_mode == 0) {
+			// Attraction: pull toward point
+			totalDisp += dir * force;
+		} else {
+			// Repulsion: push away from point
+			totalDisp -= dir * force;
+		}
+	}
+	
+	// Compute warped sampling coordinate
+	vec2 displacedUV = uv - totalDisp;
+	
+	// Sample the input texture at the displaced coordinate
+	vec4 displacedColor = texture(sTD2DInputs[0], displacedUV);
+	
+	// (Optionally enforce threshold on result to avoid faint streaks)
+	if (displacedColor.r < u_threshold) {
+		displacedColor.rgb = vec3(0.0);
+	}
+	
+	fragColor = displacedColor;
+}
