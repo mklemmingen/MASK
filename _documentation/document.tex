@@ -1,0 +1,117 @@
+\UseRawInputEncoding
+\documentclass[
+paper=A4,        
+fontsize=12,        
+DIV=11,           
+parskip=half,    
+headsepline,   
+numbers=noenddot  
+]{scrartcl}					% Dokument Grundeinstellungen
+\input{preambel}
+\begin{document}
+	
+	\hypersetup{pageanchor=false}
+	
+		\input{src/title}	
+		
+ 	\newpage
+    \singlespacing
+    
+    % Kurze Zusammenfassung nach der Titelseite
+    \section*{Zusammenfassung}
+    M.A.S.K. (Machine-Learning Assisted Skeleton Kinect Tracking) ist ein kostengünstiges Motion-Capture-System, entwickelt für die cinematographische Tanzproduktion \textit{Echoes of the Mind}. Das System kombiniert Kinect V2 Hardware mit MediaPipe-Software und TouchDesigner-Integration für Echtzeitvisualisierungen basierend auf Performerbewegungen.
+    
+    Die zentrale Innovation liegt in der Infrarot-Adaptation, die zuverlässiges Tracking unter intensiver Beamerbeleuchtung ermöglicht. Das System wurde erfolgreich in professioneller Studioumgebung validiert und demonstriert die Machbarkeit kostengünstiger Motion-Capture-Lösungen für kreative Anwendungen.
+    \addcontentsline{toc}{section}{Zusammenfassung}
+    
+    \newpage
+    
+    \tableofcontents
+    
+    \onehalfspacing
+    
+    \pagenumbering{arabic}
+    
+    \newpage
+	\hypersetup{pageanchor=true}
+	
+	\setcounter{page}{1}
+	
+	\captionsetup[subfigure]{labelformat=empty}
+
+    % HAUPTTEIL - Chronologisch logischer Aufbau
+    \tocgroup{Projektüberblick}
+
+    \section{Projektvision und Ergebnisse}\label{sec:vision}
+        \input{src/zusammenfassung}         % Ausführliche Projektvision und Dokumentationsstruktur
+
+    \newpage
+
+    \section{Projektkontext und Kooperation}\label{sec:context}
+        \input{src/Einführung}              % Stakeholder-Kontext und "Echoes of the Mind"
+
+    \newpage
+
+    \section{Machbarkeitsstudie}\label{sec:feasibility}
+        \input{src/Feasibility}            % Vorab-Analyse (TELOS-Framework)
+
+    \tocgroup{Technische Umsetzung}
+
+    \newpage
+
+    \section{Anforderungen und Designentscheidungen}\label{sec:requirements}
+        \input{src/Requirements}            % Was gebaut werden sollte
+
+    \newpage
+
+    \section{Entwicklungsweg}\label{sec:development}
+        \input{src/Entwicklungsprozess}     % Wie wir es gebaut haben (iterativ)
+
+    \newpage
+
+    \section{Systemarchitektur und Innovation}\label{sec:system}
+        \input{src/Systemarchitektur_und_Ergebnisse}  % Finales System
+
+    \tocgroup{Praxisvalidierung}
+
+    \newpage
+
+    \section{Produktionsnachweis}\label{sec:showcase}
+        \input{src/Ausführungsdokumentation} % Reale Validierung & Anwendungsfall
+
+    \tocgroup{Erkenntnisse und Lernen}
+
+    \newpage
+
+    \section{Zentrale Erkenntnisse}\label{sec:insights}
+        \input{src/erkenntnisse}
+
+    \newpage
+
+    \section{Fazit und Beiträge}\label{sec:conclusions}
+        \input{src/fazit}
+
+    \tocgroup{Technische Dokumentation}
+
+    % Anhänge für detaillierte technische Informationen
+    \appendix
+
+    \newpage
+
+    \section{Vollständiges Code-Repository}\label{app:code}
+        \input{src/anhang_code_übersicht}
+
+    \newpage
+
+    \section{Team und Kommunikation}\label{app:team}
+        \input{src/anhang_kommunikation}
+
+    \newpage
+	\printbibliography[heading=bibintoc,title={Quellenverzeichnis}]
+
+    \newpage
+
+    \section{Danksagung}
+    \input{src/danksagung}
+	
+\end{document}

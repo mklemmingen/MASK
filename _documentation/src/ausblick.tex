@@ -1,0 +1,60 @@
+% Ausblick und Skalierungspotential - M.A.S.K. Projekt
+
+M.A.S.K. funktioniert für seinen spezifischen Anwendungsfall, bietet aber Potential für Weiterentwicklungen durch andere.
+
+\subsection{Naheliegende technische Erweiterungen}
+
+\subsubsection{Hardware-Integration}
+Die modulare Architektur könnte andere Sensoren integrieren:
+\begin{itemize}
+    \item \textbf{Mehrere Kinects:} Für bessere Rundumerfassung
+    \item \textbf{Andere IR-Kameras:} Falls Kinect V2 nicht verfügbar
+    \item \textbf{Smartphone-Kameras:} MediaPipe läuft auch auf Handys
+\end{itemize}
+
+\subsubsection{Software-Verbesserungen}
+Ansätze, die auf der bestehenden Lösung aufbauen könnten:
+\begin{itemize}
+    \item \textbf{Automatische Kalibrierung:} Weniger manuelle Einstellung bei Setup-Wechseln
+    \item \textbf{Bessere Interpolation:} Glattere Bewegungen bei Tracking-Aussetzern
+    \item \textbf{Mehr Visualisierungen:} Community könnte TouchDesigner-Module beitragen
+\end{itemize}
+
+\subsection{Mögliche Anwendungsfelder}
+
+Basierend auf dem, was funktioniert hat:
+
+\subsubsection{Ähnliche Performance-Projekte}
+\begin{itemize}
+    \item \textbf{Andere Tanzproduktionen:} Mit ähnlichen Beleuchtungsherausforderungen
+    \item \textbf{Theaterproduktionen:} Wo Marker-basierte Systeme unpraktisch sind
+    \item \textbf{Installation-Kunst:} Mit begrenzten Budgets
+\end{itemize}
+
+\subsubsection{Bildungsbereich}
+\begin{itemize}
+    \item \textbf{Andere Hochschulen:} Mit ähnlichen Projekten und Equipment
+    \item \textbf{Tanzschulen:} Für experimentelle Projekte
+    \item \textbf{Maker-Spaces:} Als Demonstrator für Motion-Capture
+\end{itemize}
+
+\subsection{Was fehlt noch}
+
+Ehrliche Einschätzung der Limitierungen:
+\begin{itemize}
+    \item \textbf{Multi-Person-Tracking:} Aktuell nur eine Person zuverlässig
+    \item \textbf{Extreme Lichtverhältnisse:} RGB-Modi brauchen noch Arbeit
+    \item \textbf{Setup-Automatisierung:} Noch zu viel manuelle Kalibrierung
+    \item \textbf{Performance-Overhead:} TouchDesigner + Python hat Verbesserungspotenzial bei custom scripts gegenüber nativen Nodes
+\end{itemize}
+
+\subsection{Community-Potential}
+
+Das Open-Source-Repository könnte interessant sein für:
+\begin{itemize}
+    \item \textbf{TouchDesigner-Community:} Als Motion-Capture-Referenz
+    \item \textbf{Andere Studenten:} Mit ähnlichen Projekten
+    \item \textbf{DIY-Motion-Capture-Interessierte:} Als Ausgangspunkt
+\end{itemize}
+
+Die Infrarot-MediaPipe-Pipeline ist vermutlich der wertvollste Beitrag - ein einfacher Fix, der aber ein echtes Problem löst.

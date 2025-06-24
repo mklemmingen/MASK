@@ -1,0 +1,215 @@
+%===============================================================================
+% DOCUMENT CLASS AND ENCODING
+%===============================================================================
+% Document class is defined in main .tex file
+
+% Character encoding and language settings
+\usepackage[utf8]{inputenc}        % UTF-8 input encoding
+\usepackage[T1]{fontenc}           % T1 font encoding for better hyphenation
+\usepackage[ngerman]{babel}        % German language support
+
+%===============================================================================
+% FONTS AND TYPOGRAPHY
+%===============================================================================
+
+% Option 1: Modern and clean (RECOMMENDED)
+% \usepackage{libertine}             % Linux Libertine for body text
+% \usepackage[libertine]{newtxmath}  % Matching math font
+% \usepackage[scaled=0.9]{FiraMono} % Fira Mono for code (modern, readable)
+
+% Option 2: Classic technical documentation
+\usepackage{charter}             % Charter for body text
+\usepackage[charter]{mathdesign} % Matching math
+\usepackage[scaled=0.85]{beramono} % Bera Mono for code
+
+% Option 3: Contemporary sans-serif
+% \usepackage[default]{sourcesanspro} % Source Sans Pro
+% \usepackage[scaled=0.9]{sourcecodepro} % Source Code Pro
+
+% Typography settings
+\usepackage{microtype}             % Improved typography
+\usepackage[onehalfspacing]{setspace} % Line spacing
+\setstretch{1.15}                  % Fine-tune line spacing
+\usepackage{csquotes}              % Proper quotation marks
+\usepackage[babel,german=guillemets]{csquotes}
+
+%===============================================================================
+% PAGE LAYOUT
+%===============================================================================
+\usepackage[
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm,
+    headheight=14pt,               % Prevents warnings
+    footskip=1.5cm
+]{geometry}
+
+%===============================================================================
+% COLORS
+%===============================================================================
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+% Define project-specific colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{accentblue}{HTML}{0066CC}  % For headings/links
+
+%===============================================================================
+% MATHEMATICS AND ALGORITHMS
+%===============================================================================
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{siunitx}               % SI units
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+%===============================================================================
+% CODE LISTINGS
+%===============================================================================
+\usepackage{listings}
+\lstset{
+    % Basic settings
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    breakatwhitespace=true,
+    % Frame and numbering
+    frame=single,
+    framesep=5pt,
+    framexleftmargin=5pt,
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    numbersep=10pt,
+    % Syntax highlighting
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{codepurple},
+    % Background
+    backgroundcolor=\color{backcolour},
+    % Spacing
+    aboveskip=15pt,
+    belowskip=10pt,
+    % Other
+    showstringspaces=false,
+    captionpos=b,
+    % German umlauts support
+    literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 
+             {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 
+             {ß}{{\ss}}1
+}
+
+%===============================================================================
+% GRAPHICS AND FIGURES
+%===============================================================================
+\usepackage{graphicx}
+\usepackage{float}                 % For [H] positioning
+\usepackage{subcaption}            % Subfigures
+\usepackage{pdfpages}              % Include PDF pages
+\usepackage{background}
+
+% Configure graphics path
+\graphicspath{{images/}{figures/}{diagrams/}}
+
+% Caption setup
+\usepackage[
+    font=small,
+    labelfont=bf,
+    format=plain,
+    justification=justified,
+    singlelinecheck=false
+]{caption}
+\captionsetup[subfigure]{labelformat=empty}
+
+% Background setup
+\backgroundsetup{contents={}}
+
+\newcommand{\tocgroup}[1]{%
+    \addtocontents{toc}{\protect\vspace{1em}}%
+    \addtocontents{toc}{\protect\noindent\protect\rule{\textwidth}{0.4pt}}%
+    \addtocontents{toc}{\protect\vspace{0.4em}}%
+    \addtocontents{toc}{\protect\centerline{\protect\parbox{0.8\textwidth}
+    {\protect\centering\textbf{#1}}}}%
+    \addtocontents{toc}{\protect\vspace{1em}}%
+}
+
+%===============================================================================
+% TABLES
+%===============================================================================
+\usepackage{tabularx}
+\usepackage{booktabs}              % Professional tables
+\usepackage{longtable}             % Multi-page tables
+\usepackage{array}                 % Enhanced arrays/tables
+
+%===============================================================================
+% HEADERS AND FOOTERS
+%===============================================================================
+\usepackage[automark]{scrlayer-scrpage}
+\clearpairofpagestyles
+\pagestyle{scrheadings}
+\ihead{Lauterbach, Marty}
+\chead{}
+\ohead{\today}
+\ifoot{}
+\cfoot{}
+\ofoot[{\thepage\ von \pageref*{LastPage}}]{\thepage\ von \pageref*{LastPage}}
+
+%===============================================================================
+% BIBLIOGRAPHY
+%===============================================================================
+\usepackage[
+    backend=biber,
+    style=numeric,
+    sorting=none,
+    maxbibnames=99
+]{biblatex}
+\addbibresource{bibliography.bib}
+
+%===============================================================================
+% HYPERLINKS AND PDF METADATA
+%===============================================================================
+\usepackage{lastpage}
+\usepackage[
+    plainpages=false,
+    pdfusetitle,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    breaklinks=true
+]{hyperref}
+
+\hypersetup{
+    pdftitle={M.A.S.K. - Machine-Learning Assisted Skeleton Kinect Tracking},
+    pdfauthor={Marty Lauterbach},
+    pdfsubject={MKI-Projekt Dokumentation - Interdisziplinäre Motion-Capture-Lösung},
+    pdfkeywords={Motion Capture, MediaPipe, Kinect, TouchDesigner, Performance Art},
+    pdfproducer={pdfLaTeX},
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=accentblue,
+    urlcolor=accentblue,
+    pdfdisplaydoctitle=true
+}
+
+\usepackage{svg}
+% Configure SVG package for better compatibility
+\svgsetup{
+    inkscapeexe={inkscape},
+    inkscapearea=page,
+    inkscapelatex=false
+}
+
+%===============================================================================
+% MISCELLANEOUS
+%===============================================================================
+% \usepackage[normalem]{ulem}        % Underline/strikethrough
+\setcounter{tocdepth}{2}           % TOC depth
+\rmfamily                          % Roman family default
+
+%===============================================================================
+% CUSTOM COMMANDS (Optional)
+%===============================================================================
+\newcommand{\mask}{\textsc{M.A.S.K.}\xspace}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}

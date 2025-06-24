@@ -1,0 +1,56 @@
+% Problemstellung und entwickelte Lösungen
+
+\subsection{Das Grundproblem}
+
+Performance-Künstler wollen Bewegungen in Echtzeit in Visualisierungen umwandeln. Das klingt einfach, ist aber technisch knifflig: 
+
+\textbf{Konkrete Herausforderungen:}
+\begin{itemize}
+    \item \textbf{Beleuchtungskonflikt:} Beamerprojektion überblendet RGB-Kameras
+    \item \textbf{Partielle Sichtbarkeit:} Tänzer verdecken oft Körperteile - Standard-Kinect verliert dann das Skelett
+    \item \textbf{Timing:} Live-Performance braucht sofortige Reaktion ohne spürbare Verzögerung
+    \item \textbf{Setup-Aufwand:} Jede neue Kamera-/Beamerposition erfordert stundenlange Neukalibrierung
+\end{itemize}
+
+
+
+\textbf{Projektkontext 'Echoes of the Mind':}
+Die Filmakademie Ludwigsburg benötigte für ihre Tanzproduktion:
+\begin{itemize}
+    \item Bodenprojektion mit Tracking von oben
+    \item Frontale sowie von hinten auf die Kamera leuchtende Beamerbeleuchtung mit gleichzeitigem Tracking
+    \item Daraus resultierend: Drei verschiedene Visualisierungsmodi
+    \item Integration des Trackings in die drei bestehenden TouchDesigner-Workflows
+\end{itemize}
+
+\subsection{Entwickelte Lösungsansätze}
+
+\textbf{Infrarot statt RGB:}
+Wir umgingen das Beleuchtungsproblem, indem wir den Infrarot-Stream der Kinect V2 über OBS Virtual Camera an MediaPipe weiterleiten. Infrarot funktioniert unabhängig von sichtbarer Beleuchtung.
+
+\textbf{MediaPipe für robusteres Tracking:}
+MediaPipes ML-Modell kommt besser mit partiell verdeckten Körpern zurecht als die native Kinect-Skelett-Erkennung. Bei Tests mit 50\% Körperokklusion blieb MediaPipe stabil, während Kinect das Skelett verlor.
+
+\textbf{64-Spike-Visualisierung:}
+Ein radialer Kreis mit 64 Segmenten reagiert auf Hand- und Fußbewegungen. Mit 5,625° Winkelauflösung ist das System präzise genug für subtile choreographische Gesten.
+
+\textbf{Live-Kalibrierung:}
+Ein Parametersystem in hervorgehobenen TouchDesigner Nodes ermöglicht X/Y-Verschiebung, Rotation und Skalierung während des Betriebs. Setup-Zeit: von 2-3 Stunden auf unter 30 Minuten.
+
+\textbf{Modularer Aufbau:}
+Tracking, Analyse und Visualisierung sind getrennte TouchDesigner-Container. Das ermöglicht parallele Entwicklung und einfache Integration in bestehende Projekte.
+
+\subsection{Was dabei herauskam}
+
+\textbf{Einbindung von Körperpositions-Daten in Visuals:}
+Durch 7 Python Skripte wurden Daten gesammelt, Distanz und Winkel berechnet, bereitgestellt, und in verschiedene Node-Strukturen zu verschiedenen Zwecken eingebunden. Darunter particleGPU, Switches, SOPs etc.
+
+\textbf{Funktionierender Infrarot-Workflow:}
+Die Kombination aus Kinect V2 IR-Stream und MediaPipe löst das Beleuchtungsproblem zuverlässig. Das war nicht selbstverständlich - da MediaPipe für RGB-Daten optimiert ist.
+
+\textbf{Lernerkenntnisse:}
+Der ursprünglich geplante Kalman-Filter für Kinect-MediaPipe-Fusion erwies sich als unnötig komplex. MediaPipe allein ist für unsere Anwendung ausreichend robust.
+
+\subsection{Einordnung}
+
+M.A.S.K. ist kein Ersatz für professionelle Motion-Capture-Systeme wie OptiTrack. Es füllt die Lücke zwischen Consumer-Hardware und Profi-Equipment für Live-Performance unter schwierigen Lichtverhältnissen. Die Lösung funktioniert mit Standard-Hardware (Komplettpaket 90€ Kinect V2 mit Adaptern, günstiger Second-Hand) und kostenloser Software.

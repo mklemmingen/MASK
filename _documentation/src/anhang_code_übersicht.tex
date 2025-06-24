@@ -1,0 +1,191 @@
+\subsection{Open-Source-Repository}
+
+Das vollständige M.A.S.K.-System ist als strukturiertes GitHub-Repository verfügbar für Reproduktion und Weiterentwicklung.
+
+\textbf{Repository:} \url{https://github.com/mklemmingen/MASK} (GPL-2.0 License)
+
+\subsubsection{Kern-Komponenten}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|p{8cm}|}
+        \hline
+        \textbf{Komponente} & \textbf{Funktion} \\ \hline
+        \texttt{Testing\_KinectVsMediapipe.toe} & Vergleichstool für MediaPipe vs. Kinect-Tracking \\ \hline
+        \texttt{NoisyBlob\_withTracking*.tox} & Hand-Feuer-System mit ParticleGPU \\ \hline
+        \texttt{Topshot\_Visual\_withTracking*.tox} & 64-Spike Radialsystem für Top-Down-Setup \\ \hline
+        \texttt{PY\_MediaPipeDebugCircles*.py} & Debug-Visualisierung für Skelett-Detection \\ \hline
+        \texttt{PY\_AngleToPhase*.py} & Polar-Koordinaten-Berechnung für Spike-System \\ \hline
+        \texttt{PY\_NodeToParticleGPU*.py} & MediaPipe-zu-TouchDesigner Koordinatentransformation \\ \hline
+    \end{tabular}
+    \caption{M.A.S.K. Kern-Module und Funktionen}
+    \label{tab:core_modules}
+\end{table}
+
+\subsubsection{Technische Reproduzierbarkeit}
+
+\textbf{Installation:} Repository-Download und TouchDesigner 2023.11+ für vollständige Funktionalität.
+
+\textbf{Hardware-Anforderungen:} Kinect V2, OBS Studio 28.0+, NVIDIA GPU empfohlen für ParticleGPU.
+
+\textbf{Dokumentation:} README.md mit detaillierten Setup-Anweisungen und Konfigurationshinweisen.
+
+\subsection{Python-Skript-Referenz}
+
+\subsubsection{Kern-Algorithmen}
+
+\textbf{PY\_MediaPipeDebugCirclesForCompTops.py}
+\begin{itemize}
+    \item \textbf{Funktion:} Echtzeit-Debug-Visualisierung aller MediaPipe-Skeleton-Nodes
+    \item \textbf{Features:} Confidence-basierte Farbkodierung, Größen-Mapping, Toggle-Control
+    \item \textbf{Integration:} Text-DAT in Debug-Container
+\end{itemize}
+
+\textbf{PY\_NodeXYzuCentralisedSOPTranslate.py}
+\begin{itemize}
+    \item \textbf{Funktion:} MediaPipe-Koordinaten zu TouchDesigner-SOP-Transformation
+    \item \textbf{Features:} Normalisierung, Aspect-Ratio-Korrektur, Calibration-Offset
+    \item \textbf{Input:} MediaPipe XYZ-Koordinaten
+    \item \textbf{Output:} TouchDesigner-kompatible SOP-Koordinaten
+\end{itemize}
+
+\textbf{PY\_NodeDatsToDistanceAngles.py}
+\begin{itemize}
+    \item \textbf{Funktion:} Geometrische Analyse zwischen Skeleton-Nodes
+    \item \textbf{Features:} 
+    \begin{itemize}
+        \item 33 MediaPipe-Landmarks (nose bis right\_heel)
+        \item Echtzeit-Distanzberechnung zwischen definierten Gelenkpaaren
+        \item Winkelberechnung über Dot-Product mit Clamping [-1,1]
+        \item SpineBase-Approximation als Mittelwert der Hüften
+    \end{itemize}
+    \item \textbf{Berechnete Metriken:} 13 Distanzen, 14 Winkel zwischen Gelenken
+    \item \textbf{Output:} CHOP-Channels für geometrische Parameter über assignToNode()
+\end{itemize}
+
+\subsubsection{Visual-Spezifische Skripte}
+
+\textbf{PY\_NodeToParticleGPUtranslate.py}
+\begin{itemize}
+    \item \textbf{Funktion:} Hand-Node zu ParticleGPU-Koordinaten-Mapping
+    \item \textbf{Features:} Real-normalized Coordinates, Multi-Hand-Support
+    \item \textbf{Use-Case:} Hand-Feuer-Effekte (Visual 1)
+\end{itemize}
+
+\textbf{PY\_RelativeNodeValuesToBlended0and1Switch.py}
+\begin{itemize}
+    \item \textbf{Funktion:} Hand-über-Schulter-Erkennung für Zustandsumschaltung
+    \item \textbf{Features:} Sanfte Interpolation, Bilateral-Hand-Processing
+    \item \textbf{Use-Case:} Adaptive Kopf-Partikel-System (Visual 2)
+\end{itemize}
+
+\textbf{PY\_AngleToPhaseSkript\_HandsToCenter\_direct.py}
+\begin{itemize}
+    \item \textbf{Funktion:} 64-Spike-Winkel-zu-Phase-Transformation
+    \item \textbf{Features:} Multi-Resolution (8,12,20,64), Atan2-Präzision
+    \item \textbf{Input:} Hand/Fuß-Koordinaten relativ zu Screen-Center
+    \item \textbf{Use-Case:} Radiales Spike-System (Visual 3)
+\end{itemize}
+
+\subsubsection{Legacy-Implementierungen}
+
+\textbf{PY\_OG\_TestingWithSynchAndKalman.py}
+\begin{itemize}
+    \item \textbf{Funktion:} Historische MediaPipe-Kinect-Datenfusion
+    \item \textbf{Features:} Kalman-Filter-Glättung, Sensor-Synchronisation
+    \item \textbf{Status:} Archiviert, funktional für Referenz
+    \item \textbf{Research-Value:} Multi-Sensor-Fusion-Algorithmus
+\end{itemize}
+
+\subsection{TouchDesigner-Projektdateien}
+
+\subsubsection{Visual-System-Implementierungen}
+
+\textbf{250421\_NoisyBlob\_withTrackingAndBlitzeSwitch.tox}
+\begin{itemize}
+    \item \textbf{Fokus:} Experimentelle Bubble-Physik mit Tracking-Integration
+    \item \textbf{Features:} Noise-basierte Blob-Bewegungen, Blitz-Effekte
+    \item \textbf{Status:} Entwicklungs-Prototyp
+\end{itemize}
+
+\textbf{250421\_Topshot\_Visual\_withTracking20Spoke.tox}
+\begin{itemize}
+    \item \textbf{Fokus:} Top-Down 20-Spike-System für Overhead-Kamera
+    \item \textbf{Features:} Radiale Spike-Geometrie, Extremitäten-Tracking
+    \item \textbf{Use-Case:} Produktions-Implementierung Visual 3
+\end{itemize}
+
+\textbf{250421\_Topshot\_Visual\_withTracking20Spoke\_v2.tox}
+\begin{itemize}
+    \item \textbf{Fokus:} Erweiterte Version des 20-Spike-Systems
+    \item \textbf{Improvements:} Optimierte Performance, erweiterte Parameter
+    \item \textbf{Status:} Finale Produktionsversion
+\end{itemize}
+
+\textbf{250421\_prettyBubbles\_blaueFade\_withTracking.tox}
+\begin{itemize}
+    \item \textbf{Fokus:} Blaue Bubble-Effekte mit Fade-Transition
+    \item \textbf{Features:} Tracking-responsive Bubble-Generierung
+    \item \textbf{Use-Case:} Alternative zu Hand-Feuer-Effekten
+\end{itemize}
+
+\subsubsection{Kern-Komponenten}
+
+\textbf{Focus.tox}
+\begin{itemize}
+    \item \textbf{Funktion:} Fokus-Steuerung für Visual-Effekte
+    \item \textbf{Integration:} Modulare TouchDesigner-Komponente
+\end{itemize}
+
+\textbf{Grain.tox}
+\begin{itemize}
+    \item \textbf{Funktion:} Grain-Effekt für visuelle Textur
+    \item \textbf{Integration:} Post-Processing-Komponente
+\end{itemize}
+
+\textbf{TrackingAsATox\_needsRelativeMediaPipeTox.tox}
+\begin{itemize}
+    \item \textbf{Funktion:} Tracking-System als modulare Komponente
+    \item \textbf{Dependencies:} Relative MediaPipe-Komponente erforderlich
+    \item \textbf{Use-Case:} Wiederverwendbare Tracking-Pipeline
+\end{itemize}
+
+\subsection{Testing und Validierung}
+
+\subsubsection{Komparative Evaluation}
+
+\textbf{Testing\_KinectVsMediapipe.toe}
+\begin{itemize}
+    \item \textbf{Funktion:} Direkte Vergleichstests zwischen Kinect V2 und MediaPipe
+    \item \textbf{Features:} Simultanes Tracking, Performance-Vergleich
+    \item \textbf{Outcome:} Validierung der MediaPipe-Überlegenheit bei partieller Okklusion
+    \item \textbf{Documentation:} Testing\_README.md
+\end{itemize}
+
+\subsection{Dokumentation und Assets}
+
+\subsubsection{Visuelle Dokumentation}
+
+\textbf{DocuPictures/}
+\begin{itemize}
+    \item Enthält alle Screenshots und Diagramme für die Projektdokumentation
+    \item Visual-Pipeline-Übersichten und Systemarchitektur-Diagramme
+    \item Debug-Interface-Screenshots und Production-Dokumentation
+\end{itemize}
+
+\textbf{comment\_assets/}
+\begin{itemize}
+    \item Zusätzliche Assets für Kommentierung und Erklärung
+    \item Unterstützende Materialien für Code-Dokumentation
+\end{itemize}
+
+\subsubsection{Backup und Versionierung}
+
+\textbf{Backup/}
+\begin{itemize}
+    \item Backup-Versionen kritischer TouchDesigner-Dateien
+    \item Entwicklungs-Snapshots für Rollback-Fähigkeiten
+    \item Archivierte Versionen verschiedener Entwicklungsphasen
+\end{itemize}
+
+Das Repository unter \url{https://github.com/mklemmingen/MASK} bietet eine kompakte, aber vollständige Implementation des M.A.S.K.-Systems. Die direkte Struktur ermöglicht einfachen Zugang zu allen Kern-Komponenten ohne komplexe Hierarchien, während die Dateinamen die chronologische Entwicklung und spezifische Funktionen klar kennzeichnen.

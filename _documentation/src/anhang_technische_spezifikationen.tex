@@ -1,0 +1,98 @@
+\subsection{Hardware-Anforderungen}
+
+\subsubsection{Minimalkonfiguration}
+\begin{itemize}
+    \item \textbf{CPU:} Moderne Multi-Core-CPU (6+ Kerne)
+    \item \textbf{GPU:} Dedizierte GPU mit OpenGL-Unterstützung
+    \item \textbf{RAM:} Ausreichend Arbeitsspeicher
+    \item \textbf{USB:} USB 3.0 Port für Kinect V2
+    \item \textbf{Betriebssystem:} Windows 10 64-bit (Build 1903+)
+\end{itemize}
+
+\subsubsection{Empfohlene Konfiguration}
+\begin{itemize}
+    \item \textbf{CPU:} Leistungsstarke Multi-Core-CPU (8+ Kerne)
+    \item \textbf{GPU:} High-End-GPU (CUDA-Support empfohlen)
+    \item \textbf{RAM:} Erweiterter Arbeitsspeicher
+    \item \textbf{Storage:} Schnelle SSD mit ausreichend Speicherplatz
+    \item \textbf{USB:} Dedicated USB 3.0 Controller für Kinect V2
+\end{itemize}
+
+\subsubsection{Kinect V2 Spezifikationen}
+\begin{itemize}
+    \item \textbf{Infrarot-Sensor:} Hochauflösender Tiefensensor
+    \item \textbf{RGB-Kamera:} Full-HD-Auflösung mit hoher Bildrate
+    \item \textbf{Tracking-Reichweite:} Mittlere bis große Entfernung
+    \item \textbf{Sichtfeld:} 70° horizontal, 60° vertikal
+    \item \textbf{Stromversorgung:} Externe 12V Stromversorgung erforderlich
+\end{itemize}
+
+\subsection{Software-Dependencies}
+
+\subsubsection{Kernkomponenten}
+\begin{itemize}
+    \item \textbf{TouchDesigner:} Version 2023.11340+ (Educational/Commercial License)
+    \item \textbf{Python:} 3.7+ (in TouchDesigner integriert)
+    \item \textbf{Kinect V2 SDK:} Version 2.0.1410.19000
+    \item \textbf{OBS Studio:} Version 28.0+ mit Virtual Camera Plugin
+\end{itemize}
+
+\subsubsection{Python-Bibliotheken}
+\begin{itemize}
+    \item \textbf{NumPy:} Version 1.21+ (mathematische Operationen)
+    \item \textbf{MediaPipe:} Version 0.8.10+ (Pose-Estimation)
+    \item \textbf{OpenCV:} Version 4.5+ (Bildverarbeitung)
+    \item \textbf{FilterPy:} Version 1.4+ (Kalman-Filter, Legacy)
+\end{itemize}
+
+\subsubsection{TouchDesigner-Komponenten}
+\begin{itemize}
+    \item \textbf{MediaPipe TOP:} Pose-Estimation-Operator | GITHUB Repo .tox
+    \item \textbf{Kinect TOP:} Hardware-Interface für Kinect V2
+    \item \textbf{ParticleGPU COMP:} GPU-beschleunigte Partikel-Systeme
+    \item \textbf{Geometry COMP:} 3D-Geometrie-Processing
+\end{itemize}
+
+\subsection{Netzwerk- und Konnektivitätsspezifikationen}
+
+\subsubsection{Lokale Konnektivität}
+\begin{itemize}
+    \item \textbf{Kinect-Verbindung:} USB 3.0 (dedicated Controller empfohlen)
+    \item \textbf{Beamer-Verbindung:} HDMI 2.0 oder DisplayPort 1.4
+    \item \textbf{Monitoring:} Zusätzliche Bildschirme für Debug-Interface
+\end{itemize}
+
+\subsubsection{Studio-Integration}
+\begin{itemize}
+    \item \textbf{DMX-Integration:} Optional über TouchDesigner DMX-Output
+    \item \textbf{Audio-Sync:} ASIO-kompatible Audio-Interface
+    \item \textbf{Timecode:} LTC/MTC-Synchronisation für Filmproduktion
+\end{itemize}
+
+\subsection{Performance-Metriken}
+
+\subsubsection{Tracking-Performance}
+\begin{itemize}
+    \item \textbf{Framerate:} Konstante hohe Bildrate für Skeleton-Detection mit Visuals
+    \item \textbf{Latenz:} Sehr niedrige Ende-zu-Ende-Latenz
+    \item \textbf{Tracking-Range:} Mittlerer Arbeitsbereich
+    \item \textbf{Okklusions-Robustheit:} Funktional bei 40-60\% Körper-Sichtbarkeit
+\end{itemize}
+
+\subsection{Kalibrierungsparameter}
+
+\subsubsection{Spatial-Calibration}
+\begin{itemize}
+    \item \textbf{X-Offset:} -1.0 bis +1.0 (normalisierte Koordinaten)
+    \item \textbf{Y-Offset:} -1.0 bis +1.0 (normalisierte Koordinaten)
+    \item \textbf{Rotation:} -45° bis +45° (Kamera-Winkel-Korrektur)
+    \item \textbf{Scale:} 0.5 bis 2.0 (Distanz-basierte Größenanpassung)
+\end{itemize}
+
+\subsubsection{Tracking-Parameter}
+\begin{itemize}
+    \item \textbf{Confidence-Threshold:} 0.3 - 0.8 (MediaPipe-Konfidenz)
+    \item \textbf{Distance-Threshold-Arm:} 0.1 - 0.5 (Screen-Koordinaten)
+    \item \textbf{Distance-Threshold-Leg:} 0.15 - 0.6 (Screen-Koordinaten)
+    \item \textbf{Interpolation-Smoothing:} 0.1 - 0.9 (Temporal-Glättung)
+\end{itemize}
