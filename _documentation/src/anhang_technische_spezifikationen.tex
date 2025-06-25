@@ -1,6 +1,6 @@
 \subsection{Hardware-Anforderungen}
 
-\subsubsection{Minimalkonfiguration}
+\textbf{Minimalkonfiguration:}
 \begin{itemize}
     \item \textbf{CPU:} Moderne Multi-Core-CPU (6+ Kerne)
     \item \textbf{GPU:} Dedizierte GPU mit OpenGL-Unterstützung
@@ -9,7 +9,7 @@
     \item \textbf{Betriebssystem:} Windows 10 64-bit (Build 1903+)
 \end{itemize}
 
-\subsubsection{Empfohlene Konfiguration}
+\textbf{Empfohlene Konfiguration:}
 \begin{itemize}
     \item \textbf{CPU:} Leistungsstarke Multi-Core-CPU (8+ Kerne)
     \item \textbf{GPU:} High-End-GPU (CUDA-Support empfohlen)
@@ -18,7 +18,7 @@
     \item \textbf{USB:} Dedicated USB 3.0 Controller für Kinect V2
 \end{itemize}
 
-\subsubsection{Kinect V2 Spezifikationen}
+\textbf{Kinect V2 Spezifikationen:}
 \begin{itemize}
     \item \textbf{Infrarot-Sensor:} Hochauflösender Tiefensensor
     \item \textbf{RGB-Kamera:} Full-HD-Auflösung mit hoher Bildrate
@@ -29,7 +29,7 @@
 
 \subsection{Software-Dependencies}
 
-\subsubsection{Kernkomponenten}
+\textbf{Kernkomponenten:}
 \begin{itemize}
     \item \textbf{TouchDesigner:} Version 2023.11340+ (Educational/Commercial License)
     \item \textbf{Python:} 3.7+ (in TouchDesigner integriert)
@@ -37,7 +37,7 @@
     \item \textbf{OBS Studio:} Version 28.0+ mit Virtual Camera Plugin
 \end{itemize}
 
-\subsubsection{Python-Bibliotheken}
+\textbf{Python-Bibliotheken:}
 \begin{itemize}
     \item \textbf{NumPy:} Version 1.21+ (mathematische Operationen)
     \item \textbf{MediaPipe:} Version 0.8.10+ (Pose-Estimation)
@@ -45,7 +45,7 @@
     \item \textbf{FilterPy:} Version 1.4+ (Kalman-Filter, Legacy)
 \end{itemize}
 
-\subsubsection{TouchDesigner-Komponenten}
+\textbf{TouchDesigner-Komponenten:}
 \begin{itemize}
     \item \textbf{MediaPipe TOP:} Pose-Estimation-Operator | GITHUB Repo .tox
     \item \textbf{Kinect TOP:} Hardware-Interface für Kinect V2
@@ -55,14 +55,14 @@
 
 \subsection{Netzwerk- und Konnektivitätsspezifikationen}
 
-\subsubsection{Lokale Konnektivität}
+\textbf{Lokale Konnektivität:}
 \begin{itemize}
     \item \textbf{Kinect-Verbindung:} USB 3.0 (dedicated Controller empfohlen)
     \item \textbf{Beamer-Verbindung:} HDMI 2.0 oder DisplayPort 1.4
     \item \textbf{Monitoring:} Zusätzliche Bildschirme für Debug-Interface
 \end{itemize}
 
-\subsubsection{Studio-Integration}
+\textbf{Studio-Integration:}
 \begin{itemize}
     \item \textbf{DMX-Integration:} Optional über TouchDesigner DMX-Output
     \item \textbf{Audio-Sync:} ASIO-kompatible Audio-Interface
@@ -71,7 +71,7 @@
 
 \subsection{Performance-Metriken}
 
-\subsubsection{Tracking-Performance}
+\textbf{Tracking-Performance:}
 \begin{itemize}
     \item \textbf{Framerate:} Konstante hohe Bildrate für Skeleton-Detection mit Visuals
     \item \textbf{Latenz:} Sehr niedrige Ende-zu-Ende-Latenz
@@ -81,7 +81,7 @@
 
 \subsection{Kalibrierungsparameter}
 
-\subsubsection{Spatial-Calibration}
+\textbf{Spatial-Calibration:}
 \begin{itemize}
     \item \textbf{X-Offset:} -1.0 bis +1.0 (normalisierte Koordinaten)
     \item \textbf{Y-Offset:} -1.0 bis +1.0 (normalisierte Koordinaten)
@@ -89,7 +89,7 @@
     \item \textbf{Scale:} 0.5 bis 2.0 (Distanz-basierte Größenanpassung)
 \end{itemize}
 
-\subsubsection{Tracking-Parameter}
+\textbf{Tracking-Parameter:}
 \begin{itemize}
     \item \textbf{Confidence-Threshold:} 0.3 - 0.8 (MediaPipe-Konfidenz)
     \item \textbf{Distance-Threshold-Arm:} 0.1 - 0.5 (Screen-Koordinaten)

@@ -17,7 +17,8 @@ numbers=noenddot
  	\newpage
     \singlespacing
     
-    % Kurze Zusammenfassung nach der Titelseite
+    % Kurze Zusammenfassung nach der Titelseite - ohne Seitenzahl
+    \thispagestyle{empty}
     \section*{Zusammenfassung}
     M.A.S.K. (Machine-Learning Assisted Skeleton Kinect Tracking) ist ein kostengünstiges Motion-Capture-System, entwickelt für die cinematographische Tanzproduktion \textit{Echoes of the Mind}. Das System kombiniert Kinect V2 Hardware mit MediaPipe-Software und TouchDesigner-Integration für Echtzeitvisualisierungen basierend auf Performerbewegungen.
     
@@ -26,8 +27,12 @@ numbers=noenddot
     
     \newpage
     
-    \tableofcontents
+    % Inhaltsverzeichnis - ohne Seitenzahlen, kompakt auf 2 Seiten
+    \thispagestyle{empty}
+    {\small\tableofcontents}
+    \thispagestyle{empty}
     
+    \newpage
     \onehalfspacing
     
     \pagenumbering{arabic}

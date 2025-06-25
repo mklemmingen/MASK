@@ -2,11 +2,9 @@
 
 \subsection{Finale Systemarchitektur}
 
-M.A.S.K. implementiert drei spezialisierte Visualisierungssysteme über eine gemeinsame Infrarot-Tracking-Pipeline. Die modulare Architektur ermöglicht eigenständige Komponenten mit standardisierten Schnittstellen – ein entscheidender Faktor für die erfolgreiche Produktionsintegration.
+M.A.S.K. implementiert die drei bereits benannten spezialisierte Visualisierungssysteme über eine gemeinsame  (Optional Infrarot-)Tracking-Pipeline. Die modulare Architektur ermöglicht eigenständige Komponenten mit standardisierten Schnittstellen – ein entscheidender Faktor für die erfolgreiche Produktionsintegration.
 
-\newpage
-
-\subsubsection{Technische Innovation: Infrarot-MediaPipe-Pipeline}
+\subsubsection{Praxisorientierte Lösung: Infrarot-MediaPipe-Pipeline}
 
 \begin{figure}[h]
     \centering
@@ -15,7 +13,7 @@ M.A.S.K. implementiert drei spezialisierte Visualisierungssysteme über eine gem
     \label{fig:mediapipe_architecture}
 \end{figure}
 
-Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infrarot-Streams über OBS Virtual Camera an MediaPipe. Diese spezifische Adaptation für Produktionsanforderungen reduziert signifikant die Beleuchtungsinterferenzen durch Beamer-Projektionen, die RGB-basierte Systeme beeinträchtigen können.
+Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infrarot-Streams über OBS Virtual Camera an MediaPipe. Diese spezifische Adaptation für Produktionsanforderungen reduziert deutlich die Beleuchtungsinterferenzen durch Beamer-Projektionen, die RGB-basierte Systeme beeinträchtigen können.
 
 \textbf{Pipeline-Architektur im Detail:}
 \begin{enumerate}
@@ -47,11 +45,9 @@ Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infra
     \item \textbf{Latenz:} Niedrige End-to-End-Latenz unter Produktionsbedingungen
 \end{itemize}
 
-\newpage
-
 \subsection{MediaPipe-Container: Detaillierte technische Implementierung}
 
-\subsubsection{Interne Container-Architektur}
+\textbf{Interne Container-Architektur:}
 
 Der MediaPipe-Container fungiert als zentrale Tracking-Konversionseinheit zwischen dem MediaPipe-Pose-Detection-System und TouchDesigners nativen CHOP-Datenstrukturen. Die interne Architektur folgt einem modularen Design mit klar definierten Verarbeitungsschichten.
 
@@ -61,18 +57,15 @@ Der MediaPipe-Container fungiert als zentrale Tracking-Konversionseinheit zwisch
     \item \textbf{Data Normalization Unit:} Konvertierung von MediaPipe-Landmarks zu normalisierten Koordinaten [0,1]
     \item \textbf{Coordinate System Adapter:} Transformation zwischen verschiedenen Koordinatensystemen (Camera, Screen, World)
     \item \textbf{CHOP Output Generator:} Erzeugung TouchDesigner-kompatibler Channel-Operator-Datenstrukturen
-    \item \textbf{Error Handling System:} TODO ADD DESCRIPTION - Detailed error management and fallback mechanisms
 \end{itemize}
 
 \textbf{Container-Zustandsmanagement:}
 \begin{itemize}
     \item \textbf{Initialization State:} MediaPipe-Model-Loading und Camera-Input-Validation
     \item \textbf{Active Tracking State:} Kontinuierliche Pose-Detection mit Confidence-Monitoring
-    \item \textbf{Error Recovery State:} TODO ADD DESCRIPTION - Automatic recovery procedures for tracking failures
-    \item \textbf{Shutdown State:} Cleanup von MediaPipe-Ressourcen und Memory-Management
 \end{itemize}
 
-\subsubsection{Datenverarbeitungs-Pipeline im Detail}
+\textbf{Datenverarbeitungs-Pipeline im Detail:}
 
 Die interne Datenverarbeitung erfolgt in einem mehrstufigen Pipeline-System mit präzise definierten Transformationsschritten:
 
@@ -81,15 +74,13 @@ Die interne Datenverarbeitung erfolgt in einem mehrstufigen Pipeline-System mit 
     \item \texttt{camera\_input ← OBS\_Virtual\_Camera.getFrame()}
     \item \texttt{pose\_results ← MediaPipe.process(camera\_input)}
     \item \texttt{landmarks ← pose\_results.pose\_landmarks}
-    \item \texttt{confidence\_values ← pose\_results.pose\_world\_landmarks}
 \end{enumerate}
 
 \textbf{Stufe 2: Coordinate Normalization \& Validation}
 \begin{itemize}
-    \item \textbf{Landmark-Extraktion:} 33 MediaPipe-Körperpunkte mit x,y,z,visibility-Werten
-    \item \textbf{Confidence-Filtering:} Schwellenwert-basierte Validierung (Standard: visibility > 0.5)
-    \item \textbf{Koordinaten-Normalisierung:} Umwandlung zu [0,1]-Bereich für TouchDesigner-Kompatibilität
-    \item \textbf{Missing-Data-Interpolation:} TODO ADD DESCRIPTION - Interpolation strategies for occluded landmarks
+    \item \textbf{Landmark-Extraktion:} 33 MediaPipe-Körperpunkte mit x,y,z,visibility-Werten, mit zusäzlicher SpineBase-Approximation
+    \item \textbf{Confidence-Filtering:} Schwellenwert-basierte Validierung (Standard: visibility > 0.5 per MediaPipe Container Parameter)
+    \item \textbf{Optionale Koordinaten-Normalisierung (wird auch per Python Skript außerhalb gemacht:} Umwandlung zu [0,1]-Bereich für TouchDesigner-Kompatibilität
 \end{itemize}
 
 \textbf{Stufe 3: TouchDesigner CHOP Integration}
@@ -97,10 +88,9 @@ Die interne Datenverarbeitung erfolgt in einem mehrstufigen Pipeline-System mit 
     \item \textbf{Channel-Mapping:} Jeder Landmark wird zu spezifischen CHOP-Kanälen (x, y, z, confidence)
     \item \textbf{Real-time Update:} Frame-synchrone Aktualisierung aller CHOP-Outputs
     \item \textbf{Data Smoothing:} Optional: Kalman-Filter-Integration für Motion-Smoothing
-    \item \textbf{Performance Optimization:} TODO ADD DESCRIPTION - Memory pooling and computational optimizations
 \end{itemize}
 
-\subsubsection{Schnittstellen-Dokumentation}
+\textbf{Schnittstellen-Dokumentation:}
 
 \textbf{Input-Interfaces:}
 \begin{itemize}
@@ -110,60 +100,30 @@ Die interne Datenverarbeitung erfolgt in einem mehrstufigen Pipeline-System mit 
         \item \texttt{model\_complexity}: MediaPipe-Model-Precision (0=Light, 1=Full, 2=Heavy)
         \item \texttt{min\_detection\_confidence}: Minimum-Confidence für Pose-Detection (Standard: 0.5)
         \item \texttt{min\_tracking\_confidence}: Minimum-Confidence für Pose-Tracking (Standard: 0.5)
-        \item \texttt{enable\_segmentation}: TODO ADD DESCRIPTION - Segmentation mask generation options
     \end{itemize}
 \end{itemize}
 
 \textbf{Output-Interfaces:}
 \begin{itemize}
     \item \textbf{Primary CHOP Outputs:} 33 Landmark-Channels × 4 Dimensionen (x,y,z,visibility)
-    \item \textbf{Derived CHOP Outputs:} 
-    \begin{itemize}
-        \item \texttt{rechteHand}, \texttt{linkeHand}: Hand-Landmark-Isolation für Visual-Systems
-        \item \texttt{HEAD}: Kopf-Landmark-Aggregation (Nase, Ohren, Augen-Mittelwert)
-        \item \texttt{SpineBase}: Körper-Zentrum-Referenzpunkt für relative Berechnungen
-    \end{itemize}
-    \item \textbf{Debug Outputs:} Debug-Visualization-CHOPs für Development und Troubleshooting
+    \item \textbf{Derived CHOP Outputs:} Spine Base
+    \item \textbf{Debug Outputs:} Debug-Visualization-TOPs für Development und Troubleshooting, Head, Extremitäten werden als OUTs aus dem Modul geliefert
 \end{itemize}
 
-\subsubsection{Implementierungsdetails}
+\textbf{Implementierungsdetails:}
 
 \textbf{Python-Script-Integration:}
 
-Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Transformationsphasen:
+Innerhalb des Containers wird ein Skript genutzt, um auffällige grüne Kreise auf das TOP der Visuals genutzt, um die MediaPipe-Landmarks in Echtzeit zu visualisieren. Dieses Skript ist entscheidend für die Debugging-Phase und ermöglicht eine schnelle Validierung der Tracking-Daten.
 
+\item \textbf{PY\_MediaPipeDebugCirclesForCompTops.py:}
 \begin{itemize}
-    \item \textbf{PY\_MediaPipeDebugCirclesForCompTops.py:}
-    \begin{itemize}
-        \item Funktion: Real-time Debug-Visualization der MediaPipe-Landmarks
-        \item Implementation: Transform-TOP-Kontrolle mit dynamischer Circle-Positionierung
-        \item Performance: CPU-optimiert für Echtzeit-Verarbeitung
-    \end{itemize}
-    
-    \item \textbf{PY\_NodeXYzuCentralisedSOPTranslate.py:}
-    \begin{itemize}
-        \item Funktion: Koordinaten-Transformation von normalized zu projection space
-        \item Algorithm: \texttt{x = x\_norm * width/height - 1; y = 0.5 - y\_norm}
-        \item Usage: Hand-Position-Mapping für ParticleGPU-Integration
-    \end{itemize}
-    
-    \item \textbf{PY\_NodeToParticleGPUtranslate.py:}
-    \begin{itemize}
-        \item Funktion: MediaPipe-zu-ParticleGPU Koordinaten-Remapping
-        \item Range-Mapping: [0,1] → [-9,9] horizontal, [0,1] → [6,-6] vertikal (invertiert)
-        \item TouchDesigner-Integration: Direkte CHOP-Channel-Outputs für ParticleGPU-Force-Steuerung
-    \end{itemize}
+    \item Funktion: Real-time Debug-Visualization der MediaPipe-Landmarks
+    \item Implementation: Transform-TOP-Kontrolle mit dynamischer Circle-Positionierung
+    \item Performance: CPU-optimiert für Echtzeit-Verarbeitung
 \end{itemize}
 
-\textbf{Container-Konfiguration:}
-\begin{itemize}
-    \item \textbf{MediaPipe-Model-Selection:} TODO ADD DESCRIPTION - Model selection criteria and performance implications
-    \item \textbf{Threading-Architecture:} TODO ADD DESCRIPTION - Multi-threading strategies for real-time performance
-    \item \textbf{Memory-Management:} TODO ADD DESCRIPTION - Memory allocation and garbage collection strategies
-    \item \textbf{Error-Recovery-Mechanisms:} TODO ADD DESCRIPTION - Automatic restart and fallback procedures
-\end{itemize}
-
-\subsubsection{Fehlerbehebungs-Leitfaden}
+\textbf{Fehlerbehebungs-Leitfaden:}
 
 \textbf{Häufige Container-Probleme und Lösungsansätze:}
 
@@ -173,7 +133,6 @@ Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Trans
         \item \textbf{Symptom:} Alle CHOP-Outputs zeigen -1 oder 0-Werte
         \item \textbf{Diagnose:} Confidence-Werte überprüfen, Camera-Input validieren
         \item \textbf{Lösung:} Beleuchtung optimieren, Person vollständig im Frame positionieren
-        \item \textbf{Advanced:} TODO ADD DESCRIPTION - Advanced debugging procedures for detection failures
     \end{itemize}
     
     \item \textbf{Problem: Coordinate-System-Mismatch}
@@ -186,7 +145,6 @@ Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Trans
     \item \textbf{Problem: Performance-Degradation}
     \begin{itemize}
         \item \textbf{Symptom:} Frame-Rate < 30fps, erhöhte Latenz
-        \item \textbf{Diagnose:} TODO ADD DESCRIPTION - Performance profiling and bottleneck identification
         \item \textbf{Lösung:} MediaPipe-Model-Complexity reduzieren, CHOP-Update-Rate optimieren
     \end{itemize}
 \end{itemize}
@@ -196,12 +154,34 @@ Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Trans
     \item \textbf{MediaPipe-Output-Validation:} Debug-Circles aktivieren über \texttt{debugValue}-CHOP
     \item \textbf{CHOP-Data-Inspection:} Channel-Werte in TouchDesigner-Info-CHOP monitoren
     \item \textbf{Coordinate-Transform-Verification:} Transform-TOP-Outputs visuell validieren
-    \item \textbf{Performance-Monitoring:} TODO ADD DESCRIPTION - System resource monitoring and optimization
 \end{enumerate}
 
 \newpage
 
 \subsection{Drei produktionsvalidierte Visual-Systeme}
+
+\textbf{Gemeinsame Analyse-Pipeline für Trigger-Logik:}
+
+Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knoten für ihre Trigger-Logik:
+
+\textbf{PY\_NodeDatsToDistanceAngles.py:}
+\begin{itemize}
+    \item \textbf{Funktion:} Berechnung geometrischer Beziehungen zwischen Skelett-Knoten
+    \item \textbf{Features:}
+    \begin{itemize}
+        \item Extrahiert alle 33 MediaPipe-Landmarks (nose bis right\_heel)
+        \item Berechnet SpineBase als Mittelwert der Hüften
+        \item Distanzberechnung zwischen definierten Gelenkpaaren
+        \item Winkelberechnung über Dot-Product mit Clamping [-1,1]
+    \end{itemize}
+    \item \textbf{Berechnete Metriken:}
+    \begin{itemize}
+        \item 13 Distanzen (Schulter-, Ellbogen-, Handgelenk-, Knie-, Knöchel-Abstände)
+        \item 14 Winkel (Gelenk-Winkel für Arme, Beine, Hüfte-Hand-Beziehungen)
+    \end{itemize}
+    \item \textbf{Output:} Direkte Zuweisung zu Constant-CHOPs über \texttt{assignToNode()}
+    \item \textbf{Usage:} Trigger-Bedingungen für Visual-Aktivierung und Modus-Wechsel
+\end{itemize}
 
 \subsubsection{Visual-System 1: Hand-Feuer-Effekte}
 
@@ -232,6 +212,15 @@ Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Trans
 \subsubsection{Visual-System 2: Adaptive Kopfpartikel}
 
 \textbf{Zustandsmaschine:} Hand-zu-Schulter-Positionsvergleich triggert Partikel-Modus-Wechsel mit Interpolationsfunktion für sanfte Übergänge.
+
+\textbf{Koordinaten-Transformation für Visualisierungs-Modi (PY\_NodeXYzuCentralisedSOPTranslate.py):}
+\begin{itemize}
+    \item \textbf{Funktion:} Koordinaten-Transformation von normalized zu projection space für rechte Hand
+    \item \textbf{Algorithm:} \texttt{x = x\_norm * width/height - 1; y = 0.5 - y\_norm}
+    \item \textbf{Input:} \texttt{rechteHand} CHOP mit normalisierten Koordinaten
+    \item \textbf{Usage:} SOP-Koordinaten-Mapping für 3D-Geometrie-Positionierung beim Wechsel zwischen Visualisierungs-Modi
+    \item \textbf{Integration:} Ermöglicht präzise Partikel-Positionierung relativ zum Performer
+\end{itemize}
 
 \textbf{Technische Umsetzung der Zustandslogik (PY\_RelativeNodeValuesToBlended0and1Switch.py):}
 \begin{itemize}
@@ -282,7 +271,7 @@ Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Trans
 
 \subsection{Produktionsvalidierung im Albrecht-Ade-Studio}
 
-\subsubsection{Zweitägige Intensivtests unter realen Bedingungen}
+\textbf{Zweitägige Intensivtests unter realen Bedingungen:}
 
 \textbf{Tag 1 - System-Integration und Setup-Optimierung:}
 \begin{itemize}
@@ -318,9 +307,9 @@ Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Trans
     \label{tab:production_performance}
 \end{table}
 
-\subsection{Technische Innovationsbilanz}
+\subsection{Technische Lösungsbilanz}
 
-\subsubsection{Erfolgreiche Lösungsansätze}
+\textbf{Erfolgreiche Lösungsansätze:}
 
 \textbf{Infrarot-Adaptation:} Die spezifisch für Produktionsanforderungen angepasste Infrarot-MediaPipe-Pipeline adressiert effektiv das Problem der Beleuchtungsinterferenz – eine praxisorientierte Lösung mit direkter Produktionsrelevanz.
 
@@ -328,7 +317,7 @@ Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Trans
 
 \textbf{Performance-Optimierung:} Signifikante CPU-Nutzungsreduktion durch Systemvereinfachung und Architektur-Refactoring.
 
-\subsubsection{Produktionserkenntnisse}
+\textbf{Produktionserkenntnisse:}
 
 \textbf{Top-Down-Überlegenheit:} Overhead-Tracking erwies sich als robuster und wartungsärmer als frontale Kamera-Setups.
 
@@ -345,4 +334,4 @@ Der Container nutzt spezialisierte Python-DAT-Operatoren für verschiedene Trans
     \item \textbf{Positionierung vs. Konkurrenz:} M.A.S.K. konkurriert nicht mit professionellen Systemen wie OptiTrack, sondern schließt die Lücke zwischen Consumer-Hardware und Profi-Equipment für spezielle Anwendungen unter herausfordernden Beleuchtungsbedingungen.
 \end{itemize}
 
-Das M.A.S.K.-System demonstriert erfolgreich, wie constraints-driven engineering zu eleganten, produktionstauglichen Lösungen führt. Die Infrarot-Innovation entstand aus praktischen Notwendigkeiten und beweist ihre Wirksamkeit durch fehlerfreie Performance unter realen Produktionsbedingungen.
+Das M.A.S.K.-System demonstriert erfolgreich, wie constraints-driven engineering zu eleganten, produktionstauglichen Lösungen führt. Die Infrarot-Adaptation entstand aus praktischen Notwendigkeiten und beweist ihre Wirksamkeit durch fehlerfreie Performance unter realen Produktionsbedingungen.

@@ -126,12 +126,12 @@
 \backgroundsetup{contents={}}
 
 \newcommand{\tocgroup}[1]{%
-    \addtocontents{toc}{\protect\vspace{1em}}%
-    \addtocontents{toc}{\protect\noindent\protect\rule{\textwidth}{0.4pt}}%
-    \addtocontents{toc}{\protect\vspace{0.4em}}%
+    \addtocontents{toc}{\protect\vspace{0.3em}}%
+    \addtocontents{toc}{\protect\noindent\protect\rule{\textwidth}{0.2pt}}%
+    \addtocontents{toc}{\protect\vspace{0.1em}}%
     \addtocontents{toc}{\protect\centerline{\protect\parbox{0.8\textwidth}
     {\protect\centering\textbf{#1}}}}%
-    \addtocontents{toc}{\protect\vspace{1em}}%
+    \addtocontents{toc}{\protect\vspace{0.3em}}%
 }
 
 %===============================================================================
@@ -204,7 +204,14 @@
 % MISCELLANEOUS
 %===============================================================================
 % \usepackage[normalem]{ulem}        % Underline/strikethrough
-\setcounter{tocdepth}{2}           % TOC depth
+\setcounter{tocdepth}{2}           % TOC depth (sections and subsections)
+
+% Compact ToC formatting to fit in 2 pages
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforesecskip}{0.2em}
+\setlength{\cftbeforesubsecskip}{0.1em}
+
 \rmfamily                          % Roman family default
 
 %===============================================================================

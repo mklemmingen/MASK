@@ -1,6 +1,8 @@
+\subsection{Drei spezialisierte Visualisierungssysteme}
+
 M.A.S.K. implementiert drei spezialisierte Visualisierungssysteme, die über eine gemeinsame Infrarot-Tracking-Pipeline gesteuert werden. Die Architektur folgt einem modularen Ansatz, bei dem jede Komponente eigenständig funktioniert und über standardisierte Schnittstellen kommuniziert.
 
-\subsection{Visual-System 1: Hand-Feuer-Effekte}
+\textbf{Visual-System 1: Hand-Feuer-Effekte}
 
 \begin{figure}[h]
     \centering
@@ -11,7 +13,7 @@ M.A.S.K. implementiert drei spezialisierte Visualisierungssysteme, die über ein
 
 Das Hand-Feuer-System nutzt TouchDesigners ParticleGPU für die Erzeugung blauer Flammenpartikel. Die Implementation extrahiert Hand-Node-Positionen aus MediaPipe (Wrist-Landmarks 15 und 16) und transformiert diese in normalisierte Bildschirmkoordinaten. Die Partikel-Emission erfolgt geschwindigkeitsabhängig mit einer Lebenszeit von 1,2 Sekunden.
 
-\subsection{Visual-System 2: Adaptive Kopfpartikel}
+\textbf{Visual-System 2: Adaptive Kopfpartikel}
 
 \begin{figure}[h]
     \centering
@@ -22,7 +24,7 @@ Das Hand-Feuer-System nutzt TouchDesigners ParticleGPU für die Erzeugung blauer
 
 Die Kopfpartikel-Implementation verwendet eine Zustandsmaschine mit zwei Modi. Der Wechsel erfolgt durch Vergleich der Y-Koordinaten von Hand- und Schulter-Nodes. Eine Interpolationsfunktion sorgt für sanfte Übergänge zwischen den Zuständen. Die frontale Ausrichtung erfordert präzise Kalibrierung der Beamer-Kamera-Relation.
 
-\subsection{Visual-System 3: 64-Spike Radialsystem}
+\textbf{Visual-System 3: 64-Spike Radialsystem}
 
 \begin{figure}[h]
     \centering

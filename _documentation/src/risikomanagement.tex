@@ -2,8 +2,6 @@ Die Entwicklung des M.A.S.K.-Systems erforderte systematisches Risikomanagement 
 
 \subsection{Identifizierte Risikokategorien}
 
-\subsubsection{Technische Risiken}
-
 \textbf{Hardware-Abhängigkeiten:}
 \begin{itemize}
     \item \textbf{Risiko:} Kinect V2 Hardware-Ausfälle oder Kompatibilitätsprobleme
@@ -28,8 +26,6 @@ Die Entwicklung des M.A.S.K.-Systems erforderte systematisches Risikomanagement 
     \item \textbf{Mitigation:} Kontinuierliche Performance-Tests, GPU-Optimierung, Fallback-Modi
 \end{itemize}
 
-\subsubsection{Projektmanagement-Risiken}
-
 \textbf{Zeitplan-Risiken:}
 \begin{itemize}
     \item \textbf{Risiko:} Verzögerungen durch unvorhergesehene technische Probleme
@@ -45,8 +41,6 @@ Die Entwicklung des M.A.S.K.-Systems erforderte systematisches Risikomanagement 
     \item \textbf{Auswirkung:} Mittel - Entwicklung in falsche Richtung
     \item \textbf{Mitigation:} Regelmäßige Demos, gemeinsame Prototyping-Sessions, klare Dokumentation
 \end{itemize}
-
-\subsubsection{Produktionsrisiken}
 
 \textbf{Umgebungsabhängigkeiten:}
 \begin{itemize}
@@ -66,18 +60,14 @@ Die Entwicklung des M.A.S.K.-Systems erforderte systematisches Risikomanagement 
 
 \subsection{Implementierte Risikominderungsstrategien}
 
-\subsubsection{Technische Lösungsansätze}
-
 \textbf{Modularität als Risikominderung:}
 Die containerisierte TouchDesigner-Architektur ermöglichte es, einzelne Komponenten bei Problemen zu ersetzen oder zu modifizieren, ohne das Gesamtsystem zu gefährden.
 
 \textbf{Dual-Source-Tracking-Konzept:}
 Die ursprüngliche Planung eines Hybrid-Systems aus Kinect und MediaPipe bot Redundanz bei Hardware-Ausfällen. Auch nach der Fokussierung auf MediaPipe blieb die Kinect als Backup-Option verfügbar.
 
-\textbf{Infrarot-Innovation:}
+\textbf{Infrarot-Adaptation:}
 Die Entwicklung der infrarotbasierten Pipeline löste das kritische Risiko der Beleuchtungsinterferenz und machte das System robust gegenüber variablen Lichtverhältnissen.
-
-\subsubsection{Projektorganisation}
 
 \textbf{Sprint-basierte Entwicklung:}
 Die Aufteilung in sechs Sprints ermöglichte frühe Identifikation von Problemen und kontinuierliche Anpassung der Projektziele:
@@ -93,21 +83,21 @@ Regelmäßige Demos und Feedback-Schleifen verhinderten Fehlentwicklungen und st
 
 \subsection{Eingetretene Risiken und Bewältigung}
 
-\subsubsection{Kinect-MediaPipe Datenfusion}
+\textbf{Kinect-MediaPipe Datenfusion:}
 \textbf{Problem:} Die ursprünglich geplante Kalman-Filter-basierte Datenfusion erwies sich als zu komplex für die verfügbare Entwicklungszeit.
 
 \textbf{Bewältigung:} Pivot zu MediaPipe-only Implementierung in Sprint 4, wodurch Komplexität reduziert und Robustheit verbessert wurde.
 
 \textbf{Lessons Learned:} Einfachere Lösungen sind oft robuster; komplexe Datenfusion nur bei klarem Mehrwert implementieren.
 
-\subsubsection{Beleuchtungsinterferenz}
+\textbf{Beleuchtungsinterferenz:}
 \textbf{Problem:} RGB-Tracking versagte bei intensiver Beamer-Beleuchtung auf Performer.
 
 \textbf{Bewältigung:} Entwicklung der infrarotbasierten Pipeline über OBS Virtual Camera in Sprint 6.
 
 \textbf{Lessons Learned:} Hardware-Limitierungen erfordern oft kreative Software-Lösungen; alternative Sensor-Modalitäten erkunden.
 
-\subsubsection{Produktions-Setup-Komplexität}
+\textbf{Produktions-Setup-Komplexität:}
 \textbf{Problem:} Kalibrierung bei verschiedenen Kamera-Beamer-Ausrichtungen zeitaufwändiger als erwartet.
 
 \textbf{Bewältigung:} Entwicklung parametrischer Offset-Systeme für Echtzeit-Kalibrierung.
@@ -116,18 +106,18 @@ Regelmäßige Demos und Feedback-Schleifen verhinderten Fehlentwicklungen und st
 
 \subsection{Nicht eingetretene Risiken}
 
-\subsubsection{Hardware-Ausfälle}
+\textbf{Hardware-Ausfälle:}
 Trotz intensiver Nutzung blieb die Kinect V2 Hardware während der gesamten Projektlaufzeit stabil. Die Backup-Hardware wurde nicht benötigt.
 
-\subsubsection{Fundamentale Software-Inkompatibilitäten}
+\textbf{Fundamentale Software-Inkompatibilitäten:}
 Die Kombination aus TouchDesigner, MediaPipe und Kinect SDK erwies sich als stabil. Version-Locking verhinderte Probleme durch automatische Updates.
 
-\subsubsection{Performance-Limitierungen}
+\textbf{Performance-Limitierungen:}
 Das entwickelte System erreichte die erforderliche Echtzeit-Performance ohne größere Optimierungen. GPU-Shader-Integration bot zusätzliche Leistungsreserven.
 
 \subsection{Risikomanagement-Erkenntnisse}
 
-\subsubsection{Erfolgreiche Strategien}
+\textbf{Erfolgreiche Strategien:}
 \begin{itemize}
     \item \textbf{Frühe Prototyping:} Schnelle Validierung kritischer Annahmen
     \item \textbf{Modulare Architektur:} Isolierung von Risiken auf Komponenten-Ebene
@@ -135,16 +125,14 @@ Das entwickelte System erreichte die erforderliche Echtzeit-Performance ohne gr�
     \item \textbf{Flexible Zielsetzung:} Anpassung des Scope bei technischen Constraints
 \end{itemize}
 
-\subsubsection{Verbesserungspotential}
+\textbf{Verbesserungspotential:}
 \begin{itemize}
     \item \textbf{Umfangreichere Vorab-Tests:} Mehr Zeit für Studio-Integration-Tests
     \item \textbf{Backup-Szenarien:} Detailliertere Fallback-Pläne für kritische Komponenten
     \item \textbf{Externe Dependencies:} Bessere Evaluation von Third-Party-Risiken
 \end{itemize}
 
-\subsection{Empfehlungen für zukünftige Projekte}
-
-\subsubsection{Risiko-Assessment-Framework}
+\textbf{Risiko-Assessment-Framework:}
 Für ähnliche interdisziplinäre Technologieprojekte wird empfohlen:
 
 \begin{enumerate}

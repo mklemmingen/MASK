@@ -171,3 +171,11 @@ cython_debug/
 .pypirc
 
 /toxes
+
+/.claude/
+/.idea/
+/.claude/
+/.idea/
+
+_documentation/CLAUDE.md
+_documentation/COMPILATION_ERRORS.md

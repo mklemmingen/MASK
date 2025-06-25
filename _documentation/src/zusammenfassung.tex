@@ -12,7 +12,7 @@ Diese Dokumentation folgt einem chronologisch-logischen Aufbau, der den Leser vo
 
 \subsection*{Projektvision}
 
-M.A.S.K. (Machine-Learning Assisted Skeleton Kinect Tracking) entstand aus einer interdisziplinären Kooperation zwischen der Filmakademie Baden-Württemberg und der Hochschule Reutlingen. Das Projekt entwickelte ein kostengünstiges, robustes Motion-Capture-System für die cinematographische Tanzproduktion \textit{Echoes of the Mind}, die Echtzeitvisualisierungen basierend auf Performerbewegungen realisiert.
+M.A.S.K. (Machine-Learning Assisted Skeleton Kinect Tracking) entstand aus einer interdisziplinären Kooperation zwischen der Filmakademie Baden-Württemberg und der Hochschule Reutlingen. Das Projekt entwickelte ein kostengünstiges, robustes Motion-Capture-System für die cinematographische Tanzproduktion \textit{Echoes of the Mind}.
 
 Die zentrale Herausforderung bestand in der Entwicklung eines Tracking-Systems, das unter intensiver Beamerbeleuchtung und bei komplexen Bewegungssequenzen zuverlässig funktioniert. Herkömmliche RGB-basierte Tracking-Verfahren zeigen unter diesen Produktionsbedingungen reduzierte Genauigkeit. Zur Lösung wurde eine spezifische Adaptation entwickelt, die Consumer-Hardware und Open-Source-Software kombiniert.
 
@@ -24,8 +24,10 @@ Das M.A.S.K.-System wurde erfolgreich in einer professionellen Filmproduktion va
 
 Hervorgebracht wurden zusätzlich Schwierigkeiten bei der Verarbeitung von teilweise verdeckten Performern. Wenn die grundlegenden RGB-Daten nicht ausreichend schlüssig für das MediaPipe-Modell waren, folgte das System einen GIGO-Prinzip: Garbage In, Garbage Out. Das System konnte dann keine sinnvollen Skelettdaten mehr extrahieren. Die finale Infrarot-Adaptation ermöglichte es, in Momenten wo der Beamer auf dem Tänzer ein Problem war, auch bei partieller Sichtbarkeit präzisere Tracking-Daten zu generieren.
 
-Die Entwicklung verdeutlicht das Potenzial interdisziplinärer Kooperationen zwischen technischen Hochschulen und Kunsthochschulen für praxisorientierte Innovationen in der Creative Technology.
+Die Entwicklung verdeutlicht das Potenzial interdisziplinärer Kooperationen zwischen technischen Hochschulen und Kunsthochschulen für praxisorientierte Lösungsansätze in der Creative Technology.
 
-\textbf{Open Source:} Der vollständige Quellcode, inklusive TouchDesigner-Projekten und Python-Skripten, sowie dem LaTex dieser Dokumentation, ist verfügbar unter: \texttt{https://github.com/mklemmingen/MASK}
+\textbf{Open Source:} Der vollständige Quellcode, inklusive TouchDesigner-Projekten und Python-Skripten, sowie dem LaTex dieser Dokumentation, ist verfügbar unter:
+
+\texttt{https://github.com/mklemmingen/MASK}
 
 \textbf{Behind-The-Scenes Video:} Visualisierungen, Debug-Overlays und Setup der Infrarot-Pipeline unter: \texttt{TODO LINK EINFÜGEN}

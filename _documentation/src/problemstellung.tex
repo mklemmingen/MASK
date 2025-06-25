@@ -1,6 +1,6 @@
-% Problemstellung und entwickelte Lösungen
+\subsection{Problemstellung und entwickelte Lösungsansätze}
 
-\subsection{Das Grundproblem}
+\textbf{Das Grundproblem:}
 
 Performance-Künstler wollen Bewegungen in Echtzeit in Visualisierungen umwandeln. Das klingt einfach, ist aber technisch knifflig: 
 
@@ -23,7 +23,7 @@ Die Filmakademie Ludwigsburg benötigte für ihre Tanzproduktion:
     \item Integration des Trackings in die drei bestehenden TouchDesigner-Workflows
 \end{itemize}
 
-\subsection{Entwickelte Lösungsansätze}
+\textbf{Entwickelte Lösungsansätze:}
 
 \textbf{Infrarot statt RGB:}
 Wir umgingen das Beleuchtungsproblem, indem wir den Infrarot-Stream der Kinect V2 über OBS Virtual Camera an MediaPipe weiterleiten. Infrarot funktioniert unabhängig von sichtbarer Beleuchtung.
@@ -40,7 +40,7 @@ Ein Parametersystem in hervorgehobenen TouchDesigner Nodes ermöglicht X/Y-Versc
 \textbf{Modularer Aufbau:}
 Tracking, Analyse und Visualisierung sind getrennte TouchDesigner-Container. Das ermöglicht parallele Entwicklung und einfache Integration in bestehende Projekte.
 
-\subsection{Was dabei herauskam}
+\textbf{Was dabei herauskam:}
 
 \textbf{Einbindung von Körperpositions-Daten in Visuals:}
 Durch 7 Python Skripte wurden Daten gesammelt, Distanz und Winkel berechnet, bereitgestellt, und in verschiedene Node-Strukturen zu verschiedenen Zwecken eingebunden. Darunter particleGPU, Switches, SOPs etc.
@@ -51,6 +51,6 @@ Die Kombination aus Kinect V2 IR-Stream und MediaPipe löst das Beleuchtungsprob
 \textbf{Lernerkenntnisse:}
 Der ursprünglich geplante Kalman-Filter für Kinect-MediaPipe-Fusion erwies sich als unnötig komplex. MediaPipe allein ist für unsere Anwendung ausreichend robust.
 
-\subsection{Einordnung}
+\textbf{Einordnung:}
 
 M.A.S.K. ist kein Ersatz für professionelle Motion-Capture-Systeme wie OptiTrack. Es füllt die Lücke zwischen Consumer-Hardware und Profi-Equipment für Live-Performance unter schwierigen Lichtverhältnissen. Die Lösung funktioniert mit Standard-Hardware (Komplettpaket 90€ Kinect V2 mit Adaptern, günstiger Second-Hand) und kostenloser Software.
