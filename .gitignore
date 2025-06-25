@@ -179,3 +179,7 @@ cython_debug/
 
 _documentation/CLAUDE.md
 _documentation/COMPILATION_ERRORS.md
+_documentation/document.bcf
+/_documentation/document.toc
+/_documentation/document.out
+/_documentation/document.aux
