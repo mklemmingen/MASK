@@ -30,7 +30,6 @@
 \usepackage{microtype}             % Improved typography
 \usepackage[onehalfspacing]{setspace} % Line spacing
 \setstretch{1.15}                  % Fine-tune line spacing
-\usepackage{csquotes}              % Proper quotation marks
 \usepackage[babel,german=guillemets]{csquotes}
 
 %===============================================================================
@@ -60,8 +59,8 @@
 % MATHEMATICS AND ALGORITHMS
 %===============================================================================
 \usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+% \usepackage{amsfonts}  % Disabled - conflicts with mathdesign
+% \usepackage{amssymb}   % Disabled - conflicts with mathdesign
 \usepackage{siunitx}               % SI units
 \usepackage{algorithm}
 \usepackage{algpseudocode}
@@ -103,7 +102,7 @@
 %===============================================================================
 % GRAPHICS AND FIGURES
 %===============================================================================
-\usepackage{graphicx}
+\usepackage[final]{graphicx}  % final mode ignores missing images more gracefully
 \usepackage{float}                 % For [H] positioning
 \usepackage{subcaption}            % Subfigures
 \usepackage{pdfpages}              % Include PDF pages

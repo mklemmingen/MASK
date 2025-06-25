@@ -110,11 +110,11 @@ def print_report(all_sections, all_issues):
         print("-" * 80)
         
         for issue in all_issues:
-            print(f"\n📁 File: {issue['file']}")
+            print(f"\nFile: {issue['file']}")
             print(f"   Line {issue['line']}: {issue['message']}")
             print(f"   Section title: \"{issue['title']}\"")
     else:
-        print("\n✅ No hierarchy issues found!")
+        print("\nNo hierarchy issues found!")
     
     # Print section content analysis
     print("\n" + "=" * 80)
@@ -125,7 +125,7 @@ def print_report(all_sections, all_issues):
         if not sections:
             continue
             
-        print(f"\n📄 {filename}")
+        print(f"\n{filename}")
         print("-" * 40)
         
         # Count sections by type
@@ -154,19 +154,19 @@ def print_report(all_sections, all_issues):
                 merge_candidates.append((i, s))
                 print(f"   🔍 Line {s['line']}: {level} '{title[:30]}...' - {word_count} words")
                 print(f"      Content: {s.get('content_preview', 'No content')[:80]}...")
-                print(f"      💡 SUGGESTION: Consider merging - minimal content")
+                print(f"      SUGGESTION: Consider merging - minimal content")
             elif word_count < 100 and level == 'subsection':
-                print(f"   📝 Line {s['line']}: {level} '{title[:30]}...' - {word_count} words (short)")
+                print(f"   Line {s['line']}: {level} '{title[:30]}...' - {word_count} words (short)")
             elif level == 'subsection' and word_count > 300:
-                print(f"   📚 Line {s['line']}: {level} '{title[:30]}...' - {word_count} words (substantial)")
+                print(f"   Line {s['line']}: {level} '{title[:30]}...' - {word_count} words (substantial)")
         
         # Check for files with many short subsections
         subsection_count = section_counts['subsection']
         if subsection_count >= 4:
             avg_words = total_words / len(sections) if sections else 0
             if avg_words < 100:
-                print(f"\n   ⚠️  MERGE RECOMMENDATION: {subsection_count} subsections with avg {avg_words:.0f} words")
-                print(f"      Consider consolidating multiple short subsections")
+                print(f"\n   MERGE RECOMMENDATION: {subsection_count} subsections with avg {avg_words:.0f} words")
+                print(f"     Consider consolidating multiple short subsections")
         
         print()
 
@@ -192,11 +192,11 @@ def analyze_specific_file(filepath, target_lines=None):
         # Merge recommendation
         word_count = section.get('word_count', 0)
         if word_count < 30:
-            print(f"    🚨 STRONG MERGE CANDIDATE: Very minimal content ({word_count} words)")
+            print(f"    STRONG MERGE CANDIDATE: Very minimal content ({word_count} words)")
         elif word_count < 80:
-            print(f"    ⚠️  MERGE CANDIDATE: Short content ({word_count} words)")
+            print(f"    MERGE CANDIDATE: Short content ({word_count} words)")
         else:
-            print(f"    ✅ SUBSTANTIAL: Good content length ({word_count} words)")
+            print(f"    SUBSTANTIAL: Good content length ({word_count} words)")
 
 def main():
     """Main function to check all .tex files in the src directory."""
