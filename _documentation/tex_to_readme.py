@@ -287,9 +287,82 @@ class TexToReadmeConverter:
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
                 content = f.read()
+            # If the individual file is empty, try to extract from main document
+            if not content.strip():
+                content = self.extract_section_from_main_document(filename)
             return self.clean_latex_commands(content)
         except Exception as e:
             print(f"Error reading {filepath}: {e}")
+            return ""
+    
+    def extract_section_from_main_document(self, filename: str) -> str:
+        """Extract section content from the main document.tex file"""
+        main_file = self.base_dir / "document.tex"
+        if not main_file.exists():
+            return ""
+        
+        try:
+            with open(main_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Handle different filename formats
+            base_filename = filename.replace('.tex', '')
+            
+            # Look for section patterns that might contain the content
+            # Try to find content between section headers
+            section_patterns = [
+                rf'\\section\{{[^}}]*\}}\s*\\label\{{[^}}]*\}}\s*(.*?)(?=\\newpage|\\section|\\tocgroup|\\end\{{document\}})',
+                rf'\\section\*\{{[^}}]*\}}\s*(.*?)(?=\\newpage|\\section|\\addcontentsline|\\end\{{document\}})'
+            ]
+            
+            # Special handling for specific sections
+            if base_filename == 'zusammenfassung':
+                # Extract the summary section
+                pattern = r'\\section\*\{Zusammenfassung\}\s*(.*?)\\addcontentsline'
+                match = re.search(pattern, content, re.DOTALL)
+                if match:
+                    return match.group(1).strip()
+            
+            # Try to extract content based on \input commands context
+            input_pattern = rf'\\input\{{src/{base_filename}\}}'
+            input_match = re.search(input_pattern, content)
+            if input_match:
+                # Find the section that contains this input
+                lines = content.split('\n')
+                input_line_num = -1
+                for i, line in enumerate(lines):
+                    if input_pattern.replace('{', r'\{').replace('}', r'\}') in line:
+                        input_line_num = i
+                        break
+                
+                if input_line_num >= 0:
+                    # Look backwards for section header
+                    section_start = input_line_num
+                    for i in range(input_line_num - 1, -1, -1):
+                        if '\\section{' in lines[i]:
+                            section_start = i
+                            break
+                    
+                    # Look forwards for next section or end
+                    section_end = len(lines)
+                    for i in range(input_line_num + 1, len(lines)):
+                        if ('\\section{' in lines[i] or '\\newpage' in lines[i] or 
+                            '\\tocgroup{' in lines[i] or '\\end{document}' in lines[i]):
+                            section_end = i
+                            break
+                    
+                    # Extract content between section start and end
+                    section_content = '\n'.join(lines[section_start:section_end])
+                    # Remove the \input line and section header
+                    section_content = re.sub(rf'\\input\{{src/{base_filename}\}}', '', section_content)
+                    section_content = re.sub(r'\\section\{[^}]*\}\\label\{[^}]*\}', '', section_content)
+                    section_content = re.sub(r'\\newpage', '', section_content)
+                    return section_content.strip()
+            
+            return ""
+            
+        except Exception as e:
+            print(f"Error extracting section {filename} from main document: {e}")
             return ""
     
     def parse_main_document(self) -> List[Tuple[str, str]]:

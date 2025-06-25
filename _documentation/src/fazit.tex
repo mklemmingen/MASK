@@ -1,0 +1,64 @@
+\subsection{Projektergebnis}
+
+M.A.S.K. demonstriert, dass spezialisierte Motion-Capture-Lösungen mit Consumer-Hardware realisierbar sind. Das System adressiert erfolgreich die spezifische Herausforderung des Trackings unter intensiver Bühnenbeleuchtung und macht diese Technologie für Projekte mit begrenztem Budget zugänglich.
+
+\subsection{Technischer Beitrag}
+
+Die Infrarot-MediaPipe-Pipeline stellt eine praxisorientierte Lösung für spezifische Produktionsanforderungen dar. Während professionelle Systeme auf spezialisierte Hardware setzen, nutzt M.A.S.K. die verfügbare Infrarot-Funktionalität der Kinect V2 in Kombination mit MediaPipes Machine-Learning-Modell. Diese Adaptation wurde spezifisch für die Projektanforderungen entwickelt und validiert.
+
+Die modulare TouchDesigner-Architektur ermöglicht es anderen Entwicklern, einzelne Komponenten für eigene Projekte zu adaptieren. Das GitHub-Repository enthält nicht nur Code, sondern auch die komplette Entwicklungshistorie inklusive verworfener Ansätze – wertvoll für Lernende.
+
+\subsection{Praktische Relevanz}
+
+Für Bildungseinrichtungen und unabhängige Künstler bietet M.A.S.K. eine realistische Alternative zu kommerziellen Systemen. Die Hardware-Kosten beschränken sich auf circa 100 Euro für gebrauchte Kinect V2 Hardware, wobei zusätzliche Software-Infrastruktur (TouchDesigner, OBS Studio) und Entwicklungszeit je nach Projektanforderungen zu kalkulieren sind.
+
+Die erfolgreiche Produktion von "Echoes of the Mind" validiert die Praxistauglichkeit. Das System bewältigte 45 Takes über zwei Produktionstage ohne kritische Ausfälle – ein Beweis für die Stabilität der gewählten Architektur.
+
+\subsection{Limitierungen und Kontext}
+
+M.A.S.K. ersetzt keine professionellen Motion-Capture-Systeme. Für Anwendungen, die Millimeterpräzision, Multi-Person-Tracking oder 360-Grad-Erfassung erfordern, bleiben kommerzielle Lösungen überlegen. Diese Einschränkung ist bewusst: Durch Fokussierung auf einen spezifischen Use-Case konnte eine robuste Lösung entstehen.
+
+Technische Grenzen:
+\begin{itemize}
+    \item Single-Person-Tracking only
+    \item Frontalerfassung (keine 360-Grad-Abdeckung)
+    \item Manuelle Kalibrierung bei Setup-Änderungen
+    \item Abhängigkeit von MediaPipes Modell-Limitierungen
+\end{itemize}
+
+\subsection{Weiterentwicklungspotenzial}
+
+Die Open-Source-Natur des Projekts lädt zu Erweiterungen ein:
+
+\textbf{Kurzfristig:}
+\begin{itemize}
+    \item Automatische Kalibrierungsroutinen
+    \item Weitere Visual-Effekte für die bestehende Pipeline
+    \item Verbessertes Handling von Okklusionen
+\end{itemize}
+
+\textbf{Mittelfristig:}
+\begin{itemize}
+    \item Integration neuerer ML-Modelle (MediaPipe Holistic)
+    \item Multi-Sensor-Fusion mit IMUs oder LiDAR
+    \item Echtzeit-Performance-Metriken
+\end{itemize}
+
+\textbf{Langfristig:}
+\begin{itemize}
+    \item Portierung auf andere Plattformen (Mac, Linux)
+    \item Web-basierte Konfigurationsoberfläche
+    \item Integration in Game-Engines
+\end{itemize}
+
+\subsection{Breitere Implikationen}
+
+Die zunehmende Verschmelzung von Performance-Kunst und digitaler Technologie erfordert zugängliche Werkzeuge. M.A.S.K. zeigt, dass akademische Projekte diese Lücke füllen können, wenn sie sich auf praktische Probleme fokussieren statt auf theoretische Vollständigkeit.
+
+Die Infrarot-Lösung könnte Anwendungen über die Kunst hinaus finden: Physiotherapie-Überwachung, Sporttechnik-Analyse oder barrierefreie Interfaces könnten von der Beleuchtungsunabhängigkeit profitieren.
+
+\subsection{Abschließende Bewertung}
+
+M.A.S.K. ist eine praxisorientierte Lösung, die bewährte Technologien für spezifische Anwendungsanforderungen kombiniert. Das System entstand aus konkreten Produktionsnotwendigkeiten und demonstriert, wie interdisziplinäre Zusammenarbeit zu funktionsfähigen technischen Lösungen führen kann. Der Wert liegt in der durchdachten Integration verfügbarer Komponenten und der bewiesenen Produktionstauglichkeit.
+
+Das Projekt erfüllte seinen Zweck: Es ermöglichte "Echoes of the Mind" und bleibt als Open-Source-Werkzeug für andere verfügbar. In einer Welt, in der Technologie oft als Selbstzweck entwickelt wird, ist diese zielgerichtete Pragmatik vielleicht die wichtigste Stärke von M.A.S.K.
