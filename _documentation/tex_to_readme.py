@@ -278,18 +278,22 @@ class TexToReadmeConverter:
             return "M.A.S.K.", "Machine-Learning Assisted Skeleton Kinect Tracking", "Marty Lauterbach"
     
     def read_tex_file(self, filename: str) -> str:
-        """Read and process a single .tex file"""
+        """Read and process a single .tex file - READ ONLY, NEVER WRITES"""
         filepath = self.src_dir / filename
         if not filepath.exists():
             print(f"Warning: File {filepath} not found")
             return ""
         
         try:
+            # STRICTLY READ-ONLY - Never modify source files
             with open(filepath, 'r', encoding='utf-8') as f:
                 content = f.read()
+            
             # If the individual file is empty, try to extract from main document
             if not content.strip():
                 content = self.extract_section_from_main_document(filename)
+            
+            # Process content for markdown conversion but never write back to source
             return self.clean_latex_commands(content)
         except Exception as e:
             print(f"Error reading {filepath}: {e}")
@@ -553,9 +557,13 @@ class TexToReadmeConverter:
         return datetime.now().strftime("%d.%m.%Y")
     
     def write_readme(self) -> None:
-        """Write the generated README.md to the root directory"""
+        """Write the generated README.md to the root directory - ONLY writes to README.md"""
         readme_content = self.generate_readme()
         readme_path = self.root_dir / "README.md"
+        
+        # Safety check: Only allow writing to README.md
+        if not str(readme_path).endswith("README.md"):
+            raise ValueError("Security error: This script only writes to README.md files")
         
         try:
             with open(readme_path, 'w', encoding='utf-8') as f:

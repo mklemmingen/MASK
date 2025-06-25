@@ -135,8 +135,23 @@ class ReadmeBeautifier:
         content = re.sub(r' "', ' "', content)
         content = re.sub(r'" ', '" ', content)
         
-        # Improve dashes
-        content = re.sub(r' - ', ' — ', content)
+        # Fix LaTeX artifacts and formatting issues
+        content = re.sub(r'subsection\*', '### ', content)  # Fix subsection commands
+        content = re.sub(r'\\textit\{([^}]*)\}', r'*\1*', content)  # Fix italic text
+        content = re.sub(r'\\textbf\{([^}]*)\}', r'**\1**', content)  # Fix bold text
+        content = re.sub(r'\\([a-zA-Z]+)', r'\1', content)  # Remove backslashes from commands
+        content = re.sub(r'\{([^{}]*)\}', r'\1', content)  # Remove simple braces
+        content = re.sub(r'glqq', '"', content)  # Fix German quotes
+        content = re.sub(r'grqq', '"', content)  # Fix German quotes
+        content = re.sub(r'footnote\{[^}]*\}', '', content)  # Remove footnote commands
+        content = re.sub(r'url\{([^}]*)\}', r'\1', content)  # Fix URL commands
+        
+        # Fix broken image references
+        content = re.sub(r'\} \*([^*]*)\*', r'\n\n*\1*\n', content)  # Fix image captions
+        
+        # Improve dashes (but preserve list items)
+        content = re.sub(r'(?<!^)(?<!\n) - (?!\w)', ' — ', content, flags=re.MULTILINE)
+        content = re.sub(r'—-', '---', content)  # Fix broken horizontal rules
         content = re.sub(r'--', '—', content)
         
         # Fix ellipsis
@@ -147,6 +162,14 @@ class ReadmeBeautifier:
     def add_badges(self, content: str) -> str:
         """Add project badges after the title"""
         lines = content.split('\n')
+        
+        # Remove all existing badges first
+        filtered_lines = []
+        for line in lines:
+            if not line.startswith('[!['):
+                filtered_lines.append(line)
+        
+        lines = filtered_lines
         
         # Find the first header (project title)
         for i, line in enumerate(lines):
@@ -200,6 +223,44 @@ class ReadmeBeautifier:
         
         return content
     
+    def fix_images_and_links(self, content: str) -> str:
+        """Fix image paths and broken links"""
+        
+        # Fix the SVG image that's incorrectly wrapped in HTML
+        content = re.sub(
+            r'<div align="center">\n!\[FAWB Logo\]\(_documentation/images/FAWB\.svg\)\n</div>',
+            '<div align="center">\n\n![FAWB Logo](_documentation/images/FAWB.svg)\n\n</div>',
+            content
+        )
+        
+        # Fix GitHub links to use proper format
+        content = re.sub(r'`https://github\.com/([^`]+)`', r'[https://github.com/\1](https://github.com/\1)', content)
+        
+        # Fix broken image captions that start with }
+        content = re.sub(r'^\} \*([^*]+)\*', r'*\1*', content, flags=re.MULTILINE)
+        
+        # Fix malformed links and code references
+        content = re.sub(r'urlhttps://', 'https://', content)
+        
+        return content
+    
+    def improve_section_formatting(self, content: str) -> str:
+        """Improve section and subsection formatting"""
+        
+        # Fix malformed headers
+        content = re.sub(r'^subsection\*([A-Za-z])', r'### \1', content, flags=re.MULTILINE)
+        
+        # Add proper spacing around headers
+        content = re.sub(r'\n(#+\s+[^\n]+)\n(?!\n)', r'\n\1\n\n', content)
+        
+        # Fix bold headers that should be proper markdown headers
+        content = re.sub(r'^\*\*([^*]+):\*\*$', r'### \1', content, flags=re.MULTILINE)
+        
+        # Fix numbered sections
+        content = re.sub(r'^\*\*(\d+\.\s+[^*]+):\*\*', r'### \1', content, flags=re.MULTILINE)
+        
+        return content
+    
     def cleanup_formatting(self, content: str) -> str:
         """Final cleanup of formatting issues"""
         
@@ -215,6 +276,24 @@ class ReadmeBeautifier:
         # Fix header spacing
         content = re.sub(r'\n+(#+.*)\n+', r'\n\n\1\n\n', content)
         
+        # Fix broken mathematical expressions
+        content = re.sub(r'\$([^$]+)\$', r'`\1`', content)  # Convert math to code
+        content = re.sub(r'\\', '', content)  # Remove remaining backslashes
+        
+        # Clean up duplicate dashes in horizontal rules
+        content = re.sub(r'—{2,}', '---', content)
+        
+        # Fix incomplete sentences and broken formatting
+        content = re.sub(r'### 1\. Pragmatismus schlägt Perfektionismus Die funktionierende 80', 
+                        '**1. Pragmatismus schlägt Perfektionismus:** Die funktionierende 80%-Lösung ist besser als die perfekte, die nie fertig wird.', content)
+        
+        # Fix wrapped divs around images
+        content = re.sub(r'<div align="center">\s*<div align="center">\s*!\[([^\]]*)\]\(([^)]*)\)\s*</div>\s*</div>', 
+                        r'<div align="center">\n\n![\1](\2)\n\n</div>', content)
+        
+        # Remove footnote artifacts that weren't cleaned up
+        content = re.sub(r'footnote[A-Za-z.,]+', '', content)
+        
         return content.strip()
     
     def beautify(self) -> str:
@@ -228,12 +307,14 @@ class ReadmeBeautifier:
         print("🎨 Beautifying README.md...")
         
         # Apply beautification steps
-        content = self.beautify_spacing(content)
-        content = self.improve_typography(content)
-        content = self.add_badges(content)
-        content = self.add_table_of_contents_links(content)
-        content = self.improve_code_blocks(content)
-        content = self.cleanup_formatting(content)
+        content = self.improve_typography(content)  # Fix LaTeX artifacts first
+        content = self.fix_images_and_links(content)  # Fix SVG and links
+        content = self.improve_section_formatting(content)  # Fix headers
+        content = self.beautify_spacing(content)  # Improve spacing
+        content = self.add_badges(content)  # Add badges if not present
+        content = self.add_table_of_contents_links(content)  # Improve TOC
+        content = self.improve_code_blocks(content)  # Fix code blocks
+        content = self.cleanup_formatting(content)  # Final cleanup
         
         return content
     
