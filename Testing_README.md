@@ -9,7 +9,7 @@ the .toe has been certified working on 2023.12120 since it was a requirement by 
 # How to Use / Setup Step-By-Step
 for mediapipe, this project uses another github projects mediapipe configuration for GPU Acceleration as external toxes. You need to download the last compatible release via:
 
-https://github.com/torinmb/mediapipe-touchdesigner/archive/refs/tags/v0.5.0.zip
+https://github.com/torinmb/mediapipe-touchdesigner/releases/download/v0.5.0/release.zip
 
 Extract it, and put the toxes folder in the root of this project, so that the .toe access the toxes folder from its location. It needs access to pose aswell as mediapipe.tox atleast.
 
