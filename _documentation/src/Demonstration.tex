@@ -4,56 +4,27 @@ M.A.S.K. implementiert drei spezialisierte Visualisierungssysteme, die über ein
 
 \textbf{Visual-System 1: Hand-Feuer-Effekte}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/NoisyBlob_HEAD_to_ParticleGPU_Translate.png}
-    \caption{Hand-Feuer-Effekte: Blaue Partikel folgen Handbewegungen in Echtzeit}
-    \label{fig:particle_hands}
-\end{figure}
 
 Das Hand-Feuer-System nutzt TouchDesigners ParticleGPU für die Erzeugung blauer Flammenpartikel. Die Implementation extrahiert Hand-Node-Positionen aus MediaPipe (Wrist-Landmarks 15 und 16) und transformiert diese in normalisierte Bildschirmkoordinaten. Die Partikel-Emission erfolgt geschwindigkeitsabhängig mit einer Lebenszeit von 1,2 Sekunden.
 
 \textbf{Visual-System 2: Adaptive Kopfpartikel}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/NoisyBlob_animatedSwitchzwischenBlitzUndNichtBlitzBeiTrackingTrigger.png}
-    \caption{Adaptive Kopfpartikel: Zustandswechsel basierend auf Handposition relativ zur Schulter}
-    \label{fig:relative_switch}
-\end{figure}
 
 Die Kopfpartikel-Implementation verwendet eine Zustandsmaschine mit zwei Modi. Der Wechsel erfolgt durch Vergleich der Y-Koordinaten von Hand- und Schulter-Nodes. Eine Interpolationsfunktion sorgt für sanfte Übergänge zwischen den Zuständen. Die frontale Ausrichtung erfordert präzise Kalibrierung der Beamer-Kamera-Relation.
 
 \textbf{Visual-System 3: 64-Spike Radialsystem}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/TopDown_KreisZuRampsParametisierteBerechnungen.png}
-    \caption{64-Spike Radialsystem: Winkelauflösung von 5,625° für präzise Extremitätenerkennung}
-    \label{fig:spike_system}
-\end{figure}
 
 Das Spike-System berechnet Polarkoordinaten der Hand- und Fußpositionen relativ zum Bildschirmzentrum. Der atan2-Algorithmus mappt Winkel auf diskrete Spike-Indizes (0-63). Die Spike-Intensität korreliert mit der Distanz zum Zentrum. Das System arbeitet mit Top-Down-Perspektive und Infrarot-Tracking für hohe Stabilität.
 
+\clearpage
 \subsection{Infrarot-Tracking-Pipeline}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/Finished_MediaPipeContainer_mitErklärungen.png}
-    \caption{Debug-Visualisierung: MediaPipe-Skelett-Erkennung im Infrarot-Modus}
-    \label{fig:debug_circles}
-\end{figure}
 
 Die zentrale Lösung besteht in der Weiterleitung des Kinect V2 Infrarot-Streams über OBS Virtual Camera an MediaPipe. Diese Lösung umgeht Beleuchtungsinterferenzen durch Beamer-Projektionen. Der IR-Stream wird in Echtzeit zu Grayscale konvertiert und als virtuelle Kamera bereitgestellt.
 
 \subsection*{Datenverarbeitungs-Pipeline}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/NodeXYzuSOPZentriertemTranslate.png}
-    \caption{Koordinatentransformation: MediaPipe-Normalisierung zu TouchDesigner-Weltkoordinaten}
-    \label{fig:coordinate_transform}
-\end{figure}
 
 Die Datenverarbeitung erfolgt durch sieben spezialisierte Python-Skripte:
 
@@ -69,12 +40,6 @@ Die Datenverarbeitung erfolgt durch sieben spezialisierte Python-Skripte:
 
 \subsection*{Performance-Charakteristika}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/KinectMediaPipe_Testing.png}
-    \caption{Geometrische Analyse: Echtzeit-Berechnung von Skelett-Relationen}
-    \label{fig:distance_angle}
-\end{figure}
 
 Das System erreicht folgende Performance-Metriken:
 \begin{itemize}

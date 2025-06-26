@@ -6,12 +6,6 @@ M.A.S.K. implementiert die drei bereits benannten spezialisierte Visualisierungs
 
 \subsubsection{Praxisorientierte Lösung: Infrarot-MediaPipe-Pipeline}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/Finished_MediaPipeContainer_mitErklärungen.png}
-    \caption{MediaPipe-Container: Vollständige Pipeline-Architektur mit Erklärungen}
-    \label{fig:mediapipe_architecture}
-\end{figure}
 
 Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infrarot-Streams über OBS Virtual Camera an MediaPipe. Diese spezifische Adaptation für Produktionsanforderungen reduziert deutlich die Beleuchtungsinterferenzen durch Beamer-Projektionen, die RGB-basierte Systeme beeinträchtigen können.
 
@@ -49,7 +43,7 @@ Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infra
 
 \textbf{Interne Container-Architektur:}
 
-Der MediaPipe-Container fungiert als zentrale Tracking-Konversionseinheit zwischen dem MediaPipe-Pose-Detection-System und TouchDesigners nativen CHOP-Datenstrukturen. Die interne Architektur folgt einem modularen Design mit klar definierten Verarbeitungsschichten.
+\raggedright Der MediaPipe-Container fungiert als zentrale Tracking-Konversionseinheit zwischen dem MediaPipe-Pose-Detection-System und TouchDesigners nativen CHOP-Datenstrukturen. Die interne Architektur folgt einem modularen Design mit klar definierten Verarbeitungsschichten.
 
 \textbf{Container-Komponenten im Detail:}
 \begin{itemize}
@@ -67,7 +61,7 @@ Der MediaPipe-Container fungiert als zentrale Tracking-Konversionseinheit zwisch
 
 \textbf{Datenverarbeitungs-Pipeline im Detail:}
 
-Die interne Datenverarbeitung erfolgt in einem mehrstufigen Pipeline-System mit präzise definierten Transformationsschritten:
+\raggedright Die interne Datenverarbeitung erfolgt in einem mehrstufigen Pipeline-System mit präzise definierten Transformationsschritten:
 
 \textbf{Stufe 1: MediaPipe Raw Data Extraction}
 \begin{enumerate}
@@ -78,8 +72,8 @@ Die interne Datenverarbeitung erfolgt in einem mehrstufigen Pipeline-System mit 
 
 \textbf{Stufe 2: Coordinate Normalization \& Validation}
 \begin{itemize}
-    \item \textbf{Landmark-Extraktion:} 33 MediaPipe-Körperpunkte mit x,y,z,visibility-Werten, mit zusäzlicher SpineBase-Approximation
-    \item \textbf{Confidence-Filtering:} Schwellenwert-basierte Validierung (Standard: visibility > 0.5 per MediaPipe Container Parameter)
+    \item \textbf{Landmark-Extraktion:} \raggedright 33 MediaPipe-Körperpunkte mit x,y,z,visibility-Werten, mit zusäzlicher SpineBase-Approximation
+    \item \textbf{Confidence-Filtering:} \raggedright Schwellenwert-basierte Validierung (Standard: visibility > 0.5 per MediaPipe Container Parameter)
     \item \textbf{Optionale Koordinaten-Normalisierung (wird auch per Python Skript außerhalb gemacht:} Umwandlung zu [0,1]-Bereich für TouchDesigner-Kompatibilität
 \end{itemize}
 
@@ -107,14 +101,14 @@ Die interne Datenverarbeitung erfolgt in einem mehrstufigen Pipeline-System mit 
 \begin{itemize}
     \item \textbf{Primary CHOP Outputs:} 33 Landmark-Channels × 4 Dimensionen (x,y,z,visibility)
     \item \textbf{Derived CHOP Outputs:} Spine Base
-    \item \textbf{Debug Outputs:} Debug-Visualization-TOPs für Development und Troubleshooting, Head, Extremitäten werden als OUTs aus dem Modul geliefert
+    \item \textbf{Debug Outputs:} \raggedright Debug-Visualization-TOPs für Development und Troubleshooting, Head, Extremitäten werden als OUTs aus dem Modul geliefert
 \end{itemize}
 
 \textbf{Implementierungsdetails:}
 
 \textbf{Python-Script-Integration:}
 
-Innerhalb des Containers wird ein Skript genutzt, um auffällige grüne Kreise auf das TOP der Visuals genutzt, um die MediaPipe-Landmarks in Echtzeit zu visualisieren. Dieses Skript ist entscheidend für die Debugging-Phase und ermöglicht eine schnelle Validierung der Tracking-Daten.
+\raggedright Innerhalb des Containers wird ein Skript genutzt, um auffällige grüne Kreise auf das TOP der Visuals genutzt, um die MediaPipe-Landmarks in Echtzeit zu visualisieren. Dieses Skript ist entscheidend für die Debugging-Phase und ermöglicht eine schnelle Validierung der Tracking-Daten.
 
 \textbf{PY\_MediaPipeDebugCirclesForCompTops.py:}
 \begin{itemize}
@@ -162,7 +156,7 @@ Innerhalb des Containers wird ein Skript genutzt, um auffällige grüne Kreise a
 
 \textbf{Gemeinsame Analyse-Pipeline für Trigger-Logik:}
 
-Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knoten für ihre Trigger-Logik:
+\raggedright Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knoten für ihre Trigger-Logik:
 
 \textbf{PY\_NodeDatsToDistanceAngles.py:}
 \begin{itemize}
@@ -185,14 +179,8 @@ Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knot
 
 \subsubsection{Visual-System 1: Hand-Feuer-Effekte}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/docupictures/NoisyBlob_HEAD_to_ParticleGPU_Translate.png}
-    \caption{Hand-Feuer-Implementation: ParticleGPU-basierte Echtzeit-Responsivität}
-    \label{fig:hand_fire_system}
-\end{figure}
 
-\textbf{Implementation:} TouchDesigners ParticleGPU für blaue Flammenpartikel, extrahiert Hand-Landmarks (MediaPipe Nodes 15/16) und transformiert diese in normalisierte Bildschirmkoordinaten.
+\textbf{Implementation:} \raggedright TouchDesigners ParticleGPU für blaue Flammenpartikel, extrahiert Hand-Landmarks (MediaPipe Nodes 15/16) und transformiert diese in normalisierte Bildschirmkoordinaten.
 
 \textbf{Koordinaten-Transformation im Detail (PY\_NodeToParticleGPUtranslate.py):}
 \begin{itemize}
@@ -207,18 +195,18 @@ Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knot
     \item \textbf{Output:} CHOP-Kanäle 'x' und 'y' für direkte ParticleGPU-Force-Steuerung
 \end{itemize}
 
-\textbf{Produktionsergebnis:} Robuste Performance nach initialem Setup, fehlerfrei während gesamter Aufnahmezeit.
+\textbf{Produktionsergebnis:} \raggedright Robuste Performance nach initialem Setup, fehlerfrei während gesamter Aufnahmezeit.
 
 \subsubsection{Visual-System 2: Adaptive Kopfpartikel}
 
-\textbf{Zustandsmaschine:} Hand-zu-Schulter-Positionsvergleich triggert Partikel-Modus-Wechsel mit Interpolationsfunktion für sanfte Übergänge.
+\textbf{Zustandsmaschine:} \raggedright Hand-zu-Schulter-Positionsvergleich triggert Partikel-Modus-Wechsel mit Interpolationsfunktion für sanfte Übergänge.
 
 \textbf{Koordinaten-Transformation für Visualisierungs-Modi (PY\_NodeXYzuCentralisedSOPTranslate.py):}
 \begin{itemize}
     \item \textbf{Funktion:} Koordinaten-Transformation von normalized zu projection space für rechte Hand
     \item \textbf{Algorithm:} \texttt{x = x\_norm * width/height - 1; y = 0.5 - y\_norm}
     \item \textbf{Input:} \texttt{rechteHand} CHOP mit normalisierten Koordinaten
-    \item \textbf{Usage:} SOP-Koordinaten-Mapping für 3D-Geometrie-Positionierung beim Wechsel zwischen Visualisierungs-Modi
+    \item \textbf{Usage:} \raggedright SOP-Koordinaten-Mapping für 3D-Geometrie-Positionierung beim Wechsel zwischen Visualisierungs-Modi
     \item \textbf{Integration:} Ermöglicht präzise Partikel-Positionierung relativ zum Performer
 \end{itemize}
 
@@ -235,18 +223,12 @@ Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knot
     \item \textbf{Switch-TOP Integration:} Direktes Schreiben auf switch1.par.index
 \end{itemize}
 
-\textbf{Produktionserfahrung:} Funktional, aber frontale Kamera-Beamer-Konstellation erfordert häufige Nachkalibrierung – arbeitsintensiv in Produktionsumgebung.
+\textbf{Produktionserfahrung:} \raggedright Funktional, aber frontale Kamera-Beamer-Konstellation erfordert häufige Nachkalibrierung – arbeitsintensiv in Produktionsumgebung.
 
 \subsubsection{Visual-System 3: 64-Spike Radialsystem}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/docupictures/TopDown_KreisZuRampsParametisierteBerechnungen.png}
-    \caption{64-Spike-System: Polar-Koordinaten-Mapping mit 5,625° Auflösung}
-    \label{fig:spike_system_production}
-\end{figure}
 
-\textbf{Algorithmus:} atan2-basierte Polar-Koordinaten-Berechnung mappt Hand-/Fußpositionen auf diskrete Spike-Indizes (0-63) mit Intensitäts-Distanz-Korrelation.
+\textbf{Algorithmus:} \raggedright atan2-basierte Polar-Koordinaten-Berechnung mappt Hand-/Fußpositionen auf diskrete Spike-Indizes (0-63) mit Intensitäts-Distanz-Korrelation.
 
 \textbf{Detaillierte Polar-Koordinaten-Transformation (PY\_AngleToPhaseSkript):}
 \begin{itemize}
@@ -267,7 +249,7 @@ Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knot
     \item \textbf{Ramp-TOP-Control:} Automatisches connect/disconnect zu comp15
 \end{itemize}
 
-\textbf{Produktionserfolg:} Optimale Performance bei Top-Down-Aufbau, vollständig fehlerfrei während gesamter Aufnahme – das zuverlässigste der drei Systeme.
+\textbf{Produktionserfolg:} \raggedright Optimale Performance bei Top-Down-Aufbau, vollständig fehlerfrei während gesamter Aufnahme – das zuverlässigste der drei Systeme.
 
 \subsection{Produktionsvalidierung im Albrecht-Ade-Studio}
 
@@ -301,7 +283,7 @@ Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knot
         Frontale RGB & Mittel (lichtabhängig) & Hoch & Stabil mit Kalibrierung \\ \hline
         Hand-Feuer-System & Hoch (nach Setup) & Sehr gering & Robust \\ \hline
         64-Spike-System & Sehr hoch (Top-Down) & Minimal & Zuverlässig \\ \hline
-        Adaptive Kopfpartikel & Gut (kalibrierungsabhängig) & Mittel & Arbeitsintensiv \\ \hline
+        Adaptive Kopfpartikel & Gut & Mittel & Arbeitsintensiv \\ \hline
     \end{tabular}
     \caption{Produktions-Performance-Vergleich der M.A.S.K.-Systeme}
     \label{tab:production_performance}
@@ -311,9 +293,9 @@ Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knot
 
 \textbf{Erfolgreiche Lösungsansätze:}
 
-\textbf{Infrarot-Adaptation:} Die spezifisch für Produktionsanforderungen angepasste Infrarot-MediaPipe-Pipeline adressiert effektiv das Problem der Beleuchtungsinterferenz – eine praxisorientierte Lösung mit direkter Produktionsrelevanz.
+\textbf{Infrarot-Adaptation:} \raggedright Die spezifisch für Produktionsanforderungen angepasste Infrarot-MediaPipe-Pipeline adressiert effektiv das Problem der Beleuchtungsinterferenz – eine praxisorientierte Lösung mit direkter Produktionsrelevanz.
 
-\textbf{Modulare TouchDesigner-Integration:} Container-basierte Architektur ermöglicht Plug-and-Play-Funktionalität und parallele Entwicklung verschiedener Visualisierungen.
+\textbf{Modulare TouchDesigner-Integration:} \raggedright Container-basierte Architektur ermöglicht Plug-and-Play-Funktionalität und parallele Entwicklung verschiedener Visualisierungen.
 
 \textbf{Performance-Optimierung:} Signifikante CPU-Nutzungsreduktion durch Systemvereinfachung und Architektur-Refactoring.
 
@@ -321,17 +303,17 @@ Alle Visual-Systeme nutzen geometrische Beziehungsanalysen zwischen Skelett-Knot
 
 \textbf{Top-Down-Überlegenheit:} Overhead-Tracking erwies sich als robuster und wartungsärmer als frontale Kamera-Setups.
 
-\textbf{Infrarot-Immunität:} Vollständige Beleuchtungsunabhängigkeit ermöglicht kreative Freiheit bei Beamer-Intensität und -Effekten.
+\textbf{Infrarot-Immunität:} \raggedright Vollständige Beleuchtungsunabhängigkeit ermöglicht kreative Freiheit bei Beamer-Intensität und -Effekten.
 
-\textbf{Setup-Effizienz:} Kurze Setup-Zeiten erfüllen professionelle Produktionsanforderungen.
+\textbf{Setup-Effizienz:} \raggedright Kurze Setup-Zeiten erfüllen professionelle Produktionsanforderungen.
 
 \subsection{Systemlimitationen und Scope}
 
 \begin{itemize}
-    \item \textbf{Single-Person-Tracking:} Bewusste Beschränkung auf einzelne Performer für Choreographie-Fokus.
-    \item \textbf{Manuelle Kalibrierung:} Setup-Änderungen erfordern manuellen Kalibrierungsaufwand – akzeptabel für geplante Produktionsabläufe.
-    \item \textbf{Hardware-Abhängigkeit:} Kinect V2 als einzige Infrarot-Quelle – robust und kostengünstig ($\approx$90€ gebraucht).
-    \item \textbf{Positionierung vs. Konkurrenz:} M.A.S.K. konkurriert nicht mit professionellen Systemen wie OptiTrack, sondern schließt die Lücke zwischen Consumer-Hardware und Profi-Equipment für spezielle Anwendungen unter herausfordernden Beleuchtungsbedingungen.
+    \item \textbf{Single-Person-\\Tracking:} Bewusste Beschränkung auf einzelne Performer für Choreographie-Fokus.
+    \item \textbf{Manuelle Kalibrierung:} \raggedright Setup-Änderungen erfordern manuellen Kalibrierungsaufwand – akzeptabel für geplante Produktionsabläufe.
+    \item \textbf{Hardware-Abhängigkeit:} \raggedright Kinect V2 als einzige Infrarot-Quelle – robust und kostengünstig ($\approx$90€ gebraucht).
+    \item \textbf{Positionierung vs. Konkurrenz:} \raggedright M.A.S.K. konkurriert nicht mit professionellen Systemen wie OptiTrack, sondern schließt die Lücke zwischen Consumer-Hardware und Profi-Equipment für spezielle Anwendungen unter herausfordernden Beleuchtungsbedingungen.
 \end{itemize}
 
 Das M.A.S.K.-System demonstriert erfolgreich, wie constraints-driven engineering zu eleganten, produktionstauglichen Lösungen führt. Die Infrarot-Adaptation entstand aus praktischen Notwendigkeiten und beweist ihre Wirksamkeit durch fehlerfreie Performance unter realen Produktionsbedingungen.

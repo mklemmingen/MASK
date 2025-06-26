@@ -6,7 +6,9 @@ DIV=11,
 parskip=half,    
 headsepline,   
 numbers=noenddot  
-]{scrartcl}					% Dokument Grundeinstellungen
+]{scrartcl}
+\usepackage{graphicx}
+\usepackage{biblatex}					% Dokument Grundeinstellungen
 \input{preambel}
 \begin{document}
 	
@@ -112,11 +114,11 @@ numbers=noenddot
         \input{src/anhang_kommunikation}
 
     \newpage
-	\printbibliography[heading=bibintoc,title={Quellenverzeichnis}]
-
-    \newpage
 
     \section{Danksagung}
     \input{src/danksagung}
+
+    \newpage
+    \input{src/images}
 	
 \end{document}

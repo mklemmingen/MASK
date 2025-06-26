@@ -27,12 +27,12 @@ Basierend auf Expertenberatung entwickelte ich zunächst ein komplexes Dual-Sour
 \end{algorithm}
 
 \textbf{Erste Validierung:}
-Komparative Tests zwischen MediaPipe und Kinect zeigten MediaPipes bessere Robustheit bei partieller Okklusion. Das ML-Modell generierte höhere Confidence-Werte für nicht-sichtbare Körperregionen, was für komplexe Choreographien entscheidend war.
+\raggedright Komparative Tests zwischen MediaPipe und Kinect zeigten MediaPipes bessere Robustheit bei partieller Okklusion. Das ML-Modell generierte höhere Confidence-Werte für nicht-sichtbare Körperregionen, was für komplexe Choreographien entscheidend war.
 
 \subsection{Phase 2: Visual Requirements Engineering (März 2025)}
 
-\textbf{Stakeholder-Driven Design:}
-Die intensive Zusammenarbeit mit den Filmakademie-Designerinnen führte zu präzisen Visual-Anforderungen, die über einfache Bewegungstrigger hinausgingen:
+\textbf{Stakeholder-Driven\\Design:}
+\raggedright Die intensive Zusammenarbeit mit den Filmakademie-Designerinnen führte zu präzisen Visual-Anforderungen, die über einfache Bewegungstrigger hinausgingen:
 
 \begin{itemize}
     \item \textbf{Adaptive Größenmodulation:} Visuals skalieren basierend auf Performer-Zustand
@@ -40,22 +40,16 @@ Die intensive Zusammenarbeit mit den Filmakademie-Designerinnen führte zu präz
     \item \textbf{Emotionale Responsivität:} Visual-Transformation entsprechend choreographischer Intentionen
 \end{itemize}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/Sprint3_1.jpg}
-    \caption{Designkonzept: Skalierungsresponsive Visual-Transformation}
-    \label{fig:design_evolution}
-\end{figure}
 
 \textbf{Technische Herausforderungen:}
-Diese künstlerischen Anforderungen stellten das ursprüngliche System vor erhebliche Performance-Probleme. Die Dual-Source-Architektur erwies sich als zu ressourcenintensiv für komplexe Real-time-Visuals.
+\raggedright Diese künstlerischen Anforderungen stellten das ursprüngliche System vor erhebliche Performance-Probleme. Die Dual-Source-Architektur erwies sich als zu ressourcenintensiv für komplexe Real-time-Visuals.
 
 \newpage
 
 \subsection{Phase 3: Architektonische Vereinfachung (April 2025)}
 
 \textbf{Strategische Entscheidung:}
-Angesichts der Performance-Limitationen entschied ich mich für eine radikale Vereinfachung: Vollständige Fokussierung auf MediaPipe als primäres Tracking-System.
+\raggedright Angesichts der Performance-Limitationen entschied ich mich für eine radikale Vereinfachung: Vollständige Fokussierung auf MediaPipe als primäres Tracking-System.
 
 \textbf{Systemvereinfachung:}
 \begin{itemize}
@@ -66,22 +60,16 @@ Angesichts der Performance-Limitationen entschied ich mich für eine radikale Ve
 \end{itemize}
 
 \textbf{Unerwartete Erkenntnisse:}
-Die Vereinfachung führte nicht nur zu besserer Performance, sondern auch zu erhöhter Systemstabilität und einfacherer Wartung – ein klassisches Beispiel für „weniger ist mehr" in der Systemarchitektur.
+\raggedright Die Vereinfachung führte nicht nur zu besserer Performance, sondern auch zu erhöhter Systemstabilität und einfacherer Wartung – ein klassisches Beispiel für „weniger ist mehr" in der Systemarchitektur.
 
 \subsection{Phase 4: Produktionsvalidierung und Lösungsfindung (Mai 2025)}
 
 \textbf{Beleuchtungsproblem:}
-Bei den ersten Produktionstests stellte sich heraus, dass intensive Beamer-Projektionen die RGB-Kameras überlasten und MediaPipe funktionsunfähig machen. Ein fundamentales Problem für Live-Performance-Anwendungen.
+\raggedright Bei den ersten Produktionstests stellte sich heraus, dass intensive Beamer-Projektionen die RGB-Kameras überlasten und MediaPipe funktionsunfähig machen. Ein fundamentales Problem für Live-Performance-Anwendungen.
 
 \textbf{Praxisorientierte Lösung - Infrarot-Pipeline:}
-Unter Produktionsdruck entwickelte ich eine spezifische Adaptation: Routing des Kinect-Infrarot-Streams (512×424 Pixel, 16-bit) über OBS Virtual Camera direkt zu MediaPipe.
+\raggedright Unter Produktionsdruck entwickelte ich eine spezifische Adaptation: Routing des Kinect-Infrarot-Streams (512×424 Pixel, 16-bit) über OBS Virtual Camera direkt zu MediaPipe.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/TopDown_KreisZuRampsParametisierteBerechnungen.png}
-    \caption{Infrarot-MediaPipe-Pipeline: Technische Lösung für Produktionsumgebungen}
-    \label{fig:infrared_solution}
-\end{figure}
 
 \textbf{Technische Spezifikationen der finalen Lösung:}
 \begin{itemize}
@@ -94,7 +82,7 @@ Unter Produktionsdruck entwickelte ich eine spezifische Adaptation: Routing des 
 
 \textbf{Drei finale Implementierungen:}
 
-\textit{1. Hand-Feuer-Effekte:}
+\raggedright \textit{1. Hand-Feuer-Effekte:}
 ParticleGPU-basierte blaue Flammenpartikel, die Handbewegungen in Echtzeit folgen. Implementation extrahiert Hand-Landmarks (MediaPipe Nodes 15/16) und transformiert diese in normalisierte Bildschirmkoordinaten.
 Dafür werden per Script die Hand-Node-Positionen in TouchDesigner als Partikel-Emitter genutzt. Die Partikel haben eine Lebenszeit von 1,2 Sekunden und werden basierend auf der Handgeschwindigkeit emittiert.
 
@@ -122,7 +110,7 @@ und wird anschließend auf RAMP positionen gemappt, und per connect- disconnect 
         Tracking-Präzision & 75\% & 70\% (RGB) & 90\% (IR) \\ \hline
         Setup-Zeit & 45 Minuten & 15 Minuten & 20 Minuten \\ \hline
         Systemkomplexität & Hoch & Niedrig & Mittel \\ \hline
-        Produktionstauglichkeit & Nein & Bedingt (da RGB überbelichtbar) & Ja \\ \hline
+        Produktionstauglichkeit & Nein & Bedingt & Ja \\ \hline
     \end{tabular}
     \caption{Systemevolution: Technische Verbesserungen über Entwicklungsphasen (Estimates ohne professionelle Messung!)}
     \label{tab:system_evolution}

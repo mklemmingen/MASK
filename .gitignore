@@ -172,9 +172,6 @@ cython_debug/
 
 /toxes
 
-/.claude/
-/.idea/
-/.claude/
 /.idea/
 
 _documentation/CLAUDE.md
@@ -183,3 +180,4 @@ _documentation/document.bcf
 /_documentation/document.toc
 /_documentation/document.out
 /_documentation/document.aux
+/_documentation/videoMASK/

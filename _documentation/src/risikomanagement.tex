@@ -61,16 +61,16 @@ Die Entwicklung des M.A.S.K.-Systems erforderte systematisches Risikomanagement 
 \subsection{Implementierte Risikominderungsstrategien}
 
 \textbf{Modularität als Risikominderung:}
-Die containerisierte TouchDesigner-Architektur ermöglichte es, einzelne Komponenten bei Problemen zu ersetzen oder zu modifizieren, ohne das Gesamtsystem zu gefährden.
+\raggedright Die containerisierte TouchDesigner-Architektur ermöglichte es, einzelne Komponenten bei Problemen zu ersetzen oder zu modifizieren, ohne das Gesamtsystem zu gefährden.
 
 \textbf{Dual-Source-Tracking-Konzept:}
-Die ursprüngliche Planung eines Hybrid-Systems aus Kinect und MediaPipe bot Redundanz bei Hardware-Ausfällen. Auch nach der Fokussierung auf MediaPipe blieb die Kinect als Backup-Option verfügbar.
+\raggedright Die ursprüngliche Planung eines Hybrid-Systems aus Kinect und MediaPipe bot Redundanz bei Hardware-Ausfällen. Auch nach der Fokussierung auf MediaPipe blieb die Kinect als Backup-Option verfügbar.
 
 \textbf{Infrarot-Adaptation:}
-Die Entwicklung der infrarotbasierten Pipeline löste das kritische Risiko der Beleuchtungsinterferenz und machte das System robust gegenüber variablen Lichtverhältnissen.
+\raggedright Die Entwicklung der infrarotbasierten Pipeline löste das kritische Risiko der Beleuchtungsinterferenz und machte das System robust gegenüber variablen Lichtverhältnissen.
 
 \textbf{Sprint-basierte Entwicklung:}
-Die Aufteilung in sechs Sprints ermöglichte frühe Identifikation von Problemen und kontinuierliche Anpassung der Projektziele:
+\raggedright Die Aufteilung in sechs Sprints ermöglichte frühe Identifikation von Problemen und kontinuierliche Anpassung der Projektziele:
 
 \begin{itemize}
     \item Sprint 1-2: Risiko-Assessment und Machbarkeitsvalidierung
@@ -79,41 +79,41 @@ Die Aufteilung in sechs Sprints ermöglichte frühe Identifikation von Problemen
 \end{itemize}
 
 \textbf{Kontinuierliche Stakeholder-Integration:}
-Regelmäßige Demos und Feedback-Schleifen verhinderten Fehlentwicklungen und stellten sicher, dass technische Lösungen den künstlerischen Anforderungen entsprachen.
+\raggedright Regelmäßige Demos und Feedback-Schleifen verhinderten Fehlentwicklungen und stellten sicher, dass technische Lösungen den künstlerischen Anforderungen entsprachen.
 
 \subsection{Eingetretene Risiken und Bewältigung}
 
 \textbf{Kinect-MediaPipe Datenfusion:}
-\textbf{Problem:} Die ursprünglich geplante Kalman-Filter-basierte Datenfusion erwies sich als zu komplex für die verfügbare Entwicklungszeit.
+\textbf{Problem:} \raggedright Die ursprünglich geplante Kalman-Filter-basierte Datenfusion erwies sich als zu komplex für die verfügbare Entwicklungszeit.
 
-\textbf{Bewältigung:} Pivot zu MediaPipe-only Implementierung in Sprint 4, wodurch Komplexität reduziert und Robustheit verbessert wurde.
+\textbf{Bewältigung:} \raggedright Pivot zu MediaPipe-only Implementierung in Sprint 4, wodurch Komplexität reduziert und Robustheit verbessert wurde.
 
-\textbf{Lessons Learned:} Einfachere Lösungen sind oft robuster; komplexe Datenfusion nur bei klarem Mehrwert implementieren.
+\textbf{Lessons Learned:} \raggedright Einfachere Lösungen sind oft robuster; komplexe Datenfusion nur bei klarem Mehrwert implementieren.
 
 \textbf{Beleuchtungsinterferenz:}
 \textbf{Problem:} RGB-Tracking versagte bei intensiver Beamer-Beleuchtung auf Performer.
 
 \textbf{Bewältigung:} Entwicklung der infrarotbasierten Pipeline über OBS Virtual Camera in Sprint 6.
 
-\textbf{Lessons Learned:} Hardware-Limitierungen erfordern oft kreative Software-Lösungen; alternative Sensor-Modalitäten erkunden.
+\textbf{Lessons Learned:} \raggedright Hardware-Limitierungen erfordern oft kreative Software-Lösungen; alternative Sensor-Modalitäten erkunden.
 
 \textbf{Produktions-Setup-Komplexität:}
 \textbf{Problem:} Kalibrierung bei verschiedenen Kamera-Beamer-Ausrichtungen zeitaufwändiger als erwartet.
 
 \textbf{Bewältigung:} Entwicklung parametrischer Offset-Systeme für Echtzeit-Kalibrierung.
 
-\textbf{Lessons Learned:} Produktionsumgebungen sind unvorhersehbar; flexible Kalibrierungs-Tools essentiell.
+\textbf{Lessons Learned:} \raggedright Produktionsumgebungen sind unvorhersehbar; flexible Kalibrierungs-Tools essentiell.
 
 \subsection{Nicht eingetretene Risiken}
 
 \textbf{Hardware-Ausfälle:}
-Trotz intensiver Nutzung blieb die Kinect V2 Hardware während der gesamten Projektlaufzeit stabil. Die Backup-Hardware wurde nicht benötigt.
+\raggedright Trotz intensiver Nutzung blieb die Kinect V2 Hardware während der gesamten Projektlaufzeit stabil. Die Backup-Hardware wurde nicht benötigt.
 
 \textbf{Fundamentale Software-Inkompatibilitäten:}
-Die Kombination aus TouchDesigner, MediaPipe und Kinect SDK erwies sich als stabil. Version-Locking verhinderte Probleme durch automatische Updates.
+\raggedright Die Kombination aus TouchDesigner, MediaPipe und Kinect SDK erwies sich als stabil. Version-Locking verhinderte Probleme durch automatische Updates.
 
 \textbf{Performance-Limitierungen:}
-Das entwickelte System erreichte die erforderliche Echtzeit-Performance ohne größere Optimierungen. GPU-Shader-Integration bot zusätzliche Leistungsreserven.
+\raggedright Das entwickelte System erreichte die erforderliche Echtzeit-Performance ohne größere Optimierungen. GPU-Shader-Integration bot zusätzliche Leistungsreserven.
 
 \subsection{Risikomanagement-Erkenntnisse}
 

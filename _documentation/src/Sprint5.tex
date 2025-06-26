@@ -30,16 +30,9 @@ Sprint 5 markierte den Übergang von technischer Infrastruktur zur produktiven V
 
 \subsubsection{TouchDesigner Implementation-Architecture}
 
-% Temporarily commented out due to missing image file
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.9\textwidth]{images/docupictures/Finished_MediaPipeContainer_mitErklärungen.png}
-%     \caption{M.A.S.K. Haupt-Interface: MediaPipe Integration mit Debug-Visualisierung}
-%     \label{fig:main_interface}
-% \end{figure}
 
 \textbf{Systemarchitektur-Übersicht:}
-Die Abbildung \ref{fig:main_interface} zeigt die vollständig modularisierte M.A.S.K.-Pipeline mit:
+Die vollständig modularisierte M.A.S.K.-Pipeline umfasst:
 \begin{itemize}
     \item MediaPipe-Container (rot markiert) für Skeleton-Tracking
     \item Distance/Angle-Calculation-Module (orange markiert)
@@ -47,63 +40,36 @@ Die Abbildung \ref{fig:main_interface} zeigt die vollständig modularisierte M.A
     \item Containerized Processing-Pipeline für alle drei Visual-Systeme
 \end{itemize}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/KinectMediaPipe_Testing.png}
-    \caption{Komparative Tracking-Tests: MediaPipe vs. Kinect Evaluation}
-    \label{fig:tracking_comparison}
-\end{figure}
 
 \textbf{Komparative Evaluation:}
-Abbildung \ref{fig:tracking_comparison} dokumentiert die systematische Evaluation beider Tracking-Systeme:
+\raggedright Die systematische Evaluation beider Tracking-Systeme zeigt:
 \begin{itemize}
     \item Simultane Tracking-Visualisierung beider Systeme
     \item Qualitative Vergleichsmöglichkeit bei verschiedenen Bewegungssequenzen
     \item Robustheitstests bei partieller Okklusion und schnellen Bewegungen
 \end{itemize}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/NodeXYzuSOPZentriertemTranslate.png}
-    \caption{Koordinatentransformation: Node-XY zu zentralisiertem SOP-Translate}
-    \label{fig:coordinate_transformation}
-\end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/NoisyBlob_animatedSwitchzwischenBlitzUndNichtBlitzBeiTrackingTrigger.png}
-    \caption{Adaptive Visual-Switch: Animierte Zustandsmaschine mit Tracking-Triggern}
-    \label{fig:animated_switch}
-\end{figure}
+\newpage
+
 
 \textbf{Adaptive Visual-Logic:}
-Abbildung \ref{fig:animated_switch} zeigt die sophistizierte Zustandsmaschine für responsive Visual-Effekte:
+\raggedright Die sophistizierte Zustandsmaschine für responsive Visual-Effekte ermöglicht:
 \begin{itemize}
     \item \textbf{Tracking-Trigger-Detection:} Hand-Position-basierte Zustandswechsel
     \item \textbf{Smooth Transitions:} Interpolierte Übergänge zwischen Visual-Modi
     \item \textbf{Animation-Logic:} Frame-synchronisierte Visual-State-Management
 \end{itemize}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/docupictures/NoisyBlob_HEAD_to_ParticleGPU_Translate.png}
-    \caption{ParticleGPU-Pipeline: Head-Node zu ParticleGPU Translation}
-    \label{fig:particle_translation}
-\end{figure}
 
 \textbf{ParticleGPU-Integration:}
-Abbildung \ref{fig:particle_translation} dokumentiert die Head-Node zu ParticleGPU Translation-Pipeline, die eine der drei finalen Visual-Implementierungen ermöglicht. Die Architektur zeigt die elegante Lösung für Echtzeit-Partikel-Steuerung basierend auf Performer-Kopfbewegungen.
+\raggedright Die Head-Node zu ParticleGPU Translation-Pipeline ermöglicht eine der drei finalen Visual-Implementierungen. Die Architektur bietet eine elegante Lösung für Echtzeit-Partikel-Steuerung basierend auf Performer-Kopfbewegungen.
 
-% Temporarily commented out due to missing image file
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.9\textwidth]{images/docupictures/TopDown_KreisZuRampsParametisierteBerechnungen.png}
-%     \caption{64-Spike Radialsystem: Polar-Koordinaten-Berechnung mit parametrisierter Ramp-Generation}
-%     \label{fig:radial_spike_system}
-% \end{figure}
+\newpage
+
 
 \textbf{Radial Spike-System Implementation:}
-Abbildung \ref{fig:radial_spike_system} zeigt das sophistizierte 64-Spike Radialsystem:
+Das sophistizierte 64-Spike Radialsystem bietet:
 \begin{itemize}
     \item \textbf{Polar-Koordinaten-Transformation:} Extremitäten-Positionen zu Winkel-Ramp-Mapping
     \item \textbf{64-Segment-Auflösung:} 5,625° Winkelauflösung für präzise Richtungserkennung
