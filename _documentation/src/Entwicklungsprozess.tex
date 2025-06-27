@@ -103,15 +103,17 @@ und wird anschließend auf RAMP positionen gemappt, und per connect- disconnect 
 \textbf{Entwicklungsevolution im Überblick:}
 \begin{table}[H]
     \centering
-    \begin{tabular}{|l|c|c|c|}
-        \hline
-        \textbf{Metrik} & \textbf{Initial (Dual-Source)} & \textbf{Vereinfacht (MediaPipe)} & \textbf{Final (IR-Pipeline)} \\ \hline
-        CPU-Nutzung & Hoch & Gering & Etwas Mehr als Vereinfacht\\ \hline
-        Tracking-Präzision & 75\% & 70\% (RGB) & 90\% (IR) \\ \hline
-        Setup-Zeit & 45 Minuten & 15 Minuten & 20 Minuten \\ \hline
-        Systemkomplexität & Hoch & Niedrig & Mittel \\ \hline
-        Produktionstauglichkeit & Nein & Bedingt & Ja \\ \hline
-    \end{tabular}
+    \adjustbox{width=\textwidth,center}{%
+        \begin{tabular}{|l|c|c|c|}
+            \hline
+            \textbf{Metrik} & \textbf{Initial (Dual-Source)} & \textbf{Vereinfacht (MediaPipe)} & \textbf{Final (IR-Pipeline)} \\ \hline
+            CPU-Nutzung & Hoch & Gering & Etwas Mehr als Vereinfacht\\ \hline
+            Tracking-Präzision & 75\% & 70\% (RGB) & 90\% (IR) \\ \hline
+            Setup-Zeit & 45 Minuten & 15 Minuten & 20 Minuten \\ \hline
+            Systemkomplexität & Hoch & Niedrig & Mittel \\ \hline
+            Produktionstauglichkeit & Nein & Bedingt & Ja \\ \hline
+        \end{tabular}%
+    }
     \caption{Systemevolution: Technische Verbesserungen über Entwicklungsphasen (Estimates ohne professionelle Messung!)}
     \label{tab:system_evolution}
 \end{table}

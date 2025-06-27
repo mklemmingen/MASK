@@ -18,7 +18,6 @@
 % \usepackage[scaled=0.9]{FiraMono} % Fira Mono for code (modern, readable)
 
 % Option 2: Classic technical documentation
-\usepackage{charter}             % Charter for body text
 \usepackage[charter]{mathdesign} % Matching math
 \usepackage[scaled=0.85]{beramono} % Bera Mono for code
 
@@ -102,7 +101,9 @@
 %===============================================================================
 % GRAPHICS AND FIGURES
 %===============================================================================
-\usepackage[final]{graphicx}  % final mode ignores missing images more gracefully
+% \usepackage[final]{graphicx}  % final mode ignores missing images more gracefully - loaded in main document
+\usepackage{adjustbox}             % Advanced image sizing and overflow protection
+\usepackage{placeins}              % FloatBarrier for controlling figure placement
 \usepackage{float}                 % For [H] positioning
 \usepackage{subcaption}            % Subfigures
 \usepackage{pdfpages}              % Include PDF pages
@@ -125,7 +126,7 @@
 \backgroundsetup{contents={}}
 
 \newcommand{\tocgroup}[1]{%
-    \addtocontents{toc}{\protect\vspace{0.3em}}%
+    \addtocontents{toc}{\protect\vspace{3.5em}}%
     \addtocontents{toc}{\protect\noindent\protect\rule{\textwidth}{0.2pt}}%
     \addtocontents{toc}{\protect\vspace{0.1em}}%
     \addtocontents{toc}{\protect\centerline{\protect\parbox{0.8\textwidth}
@@ -157,12 +158,12 @@
 %===============================================================================
 % BIBLIOGRAPHY
 %===============================================================================
-\usepackage[
-    backend=biber,
-    style=numeric,
-    sorting=none,
-    maxbibnames=99
-]{biblatex}
+% \usepackage[
+%     backend=biber,
+%     style=numeric,
+%     sorting=none,
+%     maxbibnames=99
+% ]{biblatex}
 
 %===============================================================================
 % HYPERLINKS AND PDF METADATA
@@ -206,6 +207,7 @@
 
 % Compact ToC formatting to fit in 2 pages
 \usepackage{tocloft}
+\usepackage{color}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \setlength{\cftbeforesecskip}{0.2em}
 \setlength{\cftbeforesubsecskip}{0.1em}
