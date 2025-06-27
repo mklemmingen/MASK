@@ -4,18 +4,69 @@ M.A.S.K. implementiert drei spezialisierte Visualisierungssysteme, die über ein
 
 \textbf{Visual-System 1: Hand-Feuer-Effekte}
 
-
 Das Hand-Feuer-System nutzt TouchDesigners ParticleGPU für die Erzeugung blauer Flammenpartikel. Die Implementation extrahiert Hand-Node-Positionen aus MediaPipe (Wrist-Landmarks 15 und 16) und transformiert diese in normalisierte Bildschirmkoordinaten. Die Partikel-Emission erfolgt geschwindigkeitsabhängig mit einer Lebenszeit von 1,2 Sekunden.
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/DemonstrationOfTheMagicalFireHands.png}%
+    }
+    \caption{Live-Demonstration des NoisyBlob Hand-Feuer-Effekts bei mir im Test-Setup zuhause: Blaue Partikel-Emission folgen den Händen}
+    \label{fig:handfeuer_demonstration}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/dancerWithHandFireViewFromKinect.png}%
+    }
+    \caption{Hand-Feuer in Aktion, Sicht aus TouchDesigner: Blaue Partikel folgen den Händen. Gut zu erkennen ist das MediaPipe-Skelett, dass auch die nicht sichtbaren Füße predicted.}
+    \label{fig:hand_fire_action}
+\end{figure}
 
 \textbf{Visual-System 2: Adaptive Kopfpartikel}
 
-
 Die Kopfpartikel-Implementation verwendet eine Zustandsmaschine mit zwei Modi. Der Wechsel erfolgt durch Vergleich der Y-Koordinaten von Hand- und Schulter-Nodes. Eine Interpolationsfunktion sorgt für sanfte Übergänge zwischen den Zuständen. Die frontale Ausrichtung erfordert präzise Kalibrierung der Beamer-Kamera-Relation.
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/HeadTrackingLeftSideOfHeadWithHeadClearlyAttached.png}%
+    }
+    \caption{Head-Tracking Perspektive mit seitlichem Blickwinkel. Die Blobs sind präzise am Kopf des Performers angebracht}
+    \label{fig:low_light_tracking}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/HeadtrackingBubblesClearlyAtHeadLevelOnBackgroundBeamerMediaPipeSkeletonBeautifullyVisible.png}%
+    }
+    \caption{TouchDesigner und Kinect Perspektive: Head-Tracking-Bubbles Endergebnis: MediaPipe-Skelett-Erkennung mit Beamer-Projektion trotz Herausforderungen erfolgreich}
+    \label{fig:head_result}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/HQCameraHeadtrackingVisibleWithBubblesOffsetCorrectlyFromHQCameraViewToAppearOnRightSideOfHead.png}%
+    }
+    \caption{HQ-Kameraperspektive: Kopfpartikel mit korrektem Offset zur rechten Seite des Performers für präzise Beamer-Projektion}
+    \label{fig:headtracking_hq_kamera_offset}
+\end{figure}
 
 \textbf{Visual-System 3: 64-Spike Radialsystem}
 
-
 Das Spike-System berechnet Polarkoordinaten der Hand- und Fußpositionen relativ zum Bildschirmzentrum. Der atan2-Algorithmus mappt Winkel auf diskrete Spike-Indizes (0-63). Die Spike-Intensität korreliert mit der Distanz zum Zentrum. Das System arbeitet mit Top-Down-Perspektive und Infrarot-Tracking für hohe Stabilität.
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/BTS_TopDown_DancerAndProducer.png}%
+    }
+    \caption{Behind the Scenes: Tänzer mit professioneller Lichttechnik und Producer-Ansicht beim Top-Down-Shot}
+    \label{fig:studio_wide}
+\end{figure}
 
 \clearpage
 \subsection{Infrarot-Tracking-Pipeline}

@@ -4,10 +4,27 @@
 
 M.A.S.K. implementiert die drei bereits benannten spezialisierte Visualisierungssysteme über eine gemeinsame  (Optional Infrarot-)Tracking-Pipeline. Die modulare Architektur ermöglicht eigenständige Komponenten mit standardisierten Schnittstellen – ein entscheidender Faktor für die erfolgreiche Produktionsintegration.
 
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/Finished_MediaPipeContainer_mitErklärungen.png}%
+    }
+    \caption{M.A.S.K. MediaPipe-Container: Alle modules des Containers mit Erklärungen (farblich markiert)}
+    \label{fig:main_interface}
+\end{figure}
+
 \subsubsection{Praxisorientierte Lösung: Infrarot-MediaPipe-Pipeline}
 
-
 Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infrarot-Streams über OBS Virtual Camera an MediaPipe. Diese spezifische Adaptation für Produktionsanforderungen reduziert deutlich die Beleuchtungsinterferenzen durch Beamer-Projektionen, die RGB-basierte Systeme beeinträchtigen können.
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/InfraRedOBSCameraToMediaPipeForTopDownCirlceGradeMapping.png}%
+    }
+    \caption{Infrarot-Pipeline im Test zuhause: Kinect V2 IR-Stream über OBS Virtual Camera zu MediaPipe für störungsfreies Top-Down-Tracking}
+    \label{fig:infrarot_topdown_mapping}
+\end{figure}
 
 \textbf{Pipeline-Architektur im Detail:}
 \begin{enumerate}
@@ -52,6 +69,15 @@ Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infra
     \item \textbf{Coordinate System Adapter:} Transformation zwischen verschiedenen Koordinatensystemen (Camera, Screen, World)
     \item \textbf{CHOP Output Generator:} Erzeugung TouchDesigner-kompatibler Channel-Operator-Datenstrukturen
 \end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/Finished_MediaPipeContainer.png}%
+    }
+    \caption{Vollständiger MediaPipe-Integration-Container ohne Erklärungen: Modulare Node-Netzwerk-Architektur für Skelett-Tracking-Datenverarbeitung}
+    \label{fig:mediapipe_container_komplett}
+\end{figure}
 
 \textbf{Container-Zustandsmanagement:}
 \begin{itemize}
@@ -150,6 +176,24 @@ Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infra
     \item \textbf{Coordinate-Transform-Verification:} Transform-TOP-Outputs visuell validieren
 \end{enumerate}
 
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/HeadTrackingPerspectiveTouchDesignerWithVisualsOverlayedAboveDebugCompToSeeaccurateTrackingOfParticleGPUaboveHeadWithReallifeBeamerProjectionCorrectlyPlaced.png}%
+    }
+    \caption{Debug-Visualisierung: Präzises ParticleGPU-Tracking über Kopfposition mit korrekt ausgerichteter Beamer-Projektion}
+    \label{fig:headtracking_debug_overlay}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/HeadTrackedBubblesInActionTouchDesignerPerspectiveslightMediaPipeFrameDelaySeeableButAlsoVisualsDirectlyAtHead.png}%
+    }
+    \caption{TouchDesigner Head-Tracking in Aktion: Kopfpartikel-Bubbles mit sichtbarer MediaPipe-Frame-Verzögerung aber direkter visueller Kopfanbindung}
+    \label{fig:headtracking_bubbles_aktion}
+\end{figure}
+
 \newpage
 
 \subsection{Drei produktionsvalidierte Visual-Systeme}
@@ -191,6 +235,24 @@ Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infra
         \item Y: \texttt{tdu.remap(y\_norm, 0.0, 1.0, 6.0, -6.0)} (invertiert für TouchDesigner)
     \end{itemize}
     \item \textbf{Koordinatenraum:} [-9, 9] horizontal, [-6, 6] vertikal für ParticleGPU-Weltkoordinaten
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/NodeXYzuSOPZentriertemTranslate.png}%
+    }
+    \caption{Koordinatentransformation der Hand-Feuer-Visualisierung: Node-XY zu zentralisiertem SOP-Translate}
+    \label{fig:coordinate_transformation}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/NoisyBlob_HEAD_to_ParticleGPU_Translate.png}%
+    }
+    \caption{NoisyBlob ParticleGPU-Pipeline: Head-Node zu ParticleGPU Translation mit Transformation von Mediapipe zu Center-Offsets}
+    \label{fig:particle_translation}
+\end{figure}
     \item \textbf{Resolution-Referenz:} constant1-TOP liefert Ausgabeauflösung (1920x1080)
     \item \textbf{Output:} CHOP-Kanäle 'x' und 'y' für direkte ParticleGPU-Force-Steuerung
 \end{itemize}
@@ -223,6 +285,15 @@ Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infra
     \item \textbf{Switch-TOP Integration:} Direktes Schreiben auf switch1.par.index
 \end{itemize}
 
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/NoisyBlob_animatedSwitchzwischenBlitzUndNichtBlitzBeiTrackingTrigger.png}%
+    }
+    \caption{NoisyBlob Adaptive Visual-Switch: Animierte Zustandsmaschine mit Tracking-Triggern anhand der Spine-Base zu Händen-Position mit Smooth Transition zwischen Blitz und Nicht-Blitz}
+    \label{fig:animated_switch}
+\end{figure}
+
 \textbf{Produktionserfahrung:} \raggedright Funktional, aber frontale Kamera-Beamer-Konstellation erfordert häufige Nachkalibrierung – arbeitsintensiv in Produktionsumgebung.
 
 \subsubsection{Visual-System 3: 64-Spike Radialsystem}
@@ -248,6 +319,15 @@ Die zentrale technische Lösung besteht in der Weiterleitung des Kinect V2 Infra
     \item \textbf{Schwellenwert-Logik:} Dynamische Verbindung bei \texttt{dist >= threshold}
     \item \textbf{Ramp-TOP-Control:} Automatisches connect/disconnect zu comp15
 \end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/TopDown_KreisZuRampsParametisierteBerechnungen.png}%
+    }
+    \caption{64-Spike Radialsystem im Testing: Polar-Koordinaten-Berechnung mit parametrisierter Ramp-Generation, hier mit erklärenden farblichen Texten zu den einzelnen Modulen}
+    \label{fig:radial_spike_system}
+\end{figure}
 
 \textbf{Produktionserfolg:} \raggedright Optimale Performance bei Top-Down-Aufbau, vollständig fehlerfrei während gesamter Aufnahme – das zuverlässigste der drei Systeme.
 

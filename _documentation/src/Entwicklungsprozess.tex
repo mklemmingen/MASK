@@ -4,6 +4,15 @@ Die Entwicklung des M.A.S.K.-Systems durchlief eine fundamentale Transformation 
 
 \textbf{Hybrid-Tracking-Architektur:}
 Basierend auf Expertenberatung entwickelte ich zunächst ein komplexes Dual-Source-System:
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.85\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/MASK.png}%
+    }
+    \caption{Anfängliches Systemdesin von M.A.S.K. mit Analyse- und Triggerprozess und dem später nach Sprint 2 deprecated Dual-Source-Ansatz}
+    \label{fig:mask_architecture}
+\end{figure}
 \begin{itemize}
     \item \textbf{MediaPipe-Integration:} ML-basierte Pose-Detection über RGB-Stream
     \item \textbf{Native Kinect-Tracking:} Hardware-Skeleton mit Tiefensensor-Daten
@@ -29,6 +38,24 @@ Basierend auf Expertenberatung entwickelte ich zunächst ein komplexes Dual-Sour
 \textbf{Erste Validierung:}
 \raggedright Komparative Tests zwischen MediaPipe und Kinect zeigten MediaPipes bessere Robustheit bei partieller Okklusion. Das ML-Modell generierte höhere Confidence-Werte für nicht-sichtbare Körperregionen, was für komplexe Choreographien entscheidend war.
 
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.7\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/kinect_nodes.png}%
+    }
+    \caption{Kinect V2 Skeleton-Visualisierung mit Node-Nummerierung | Vor Sprint 2 mit MediaPipe Nodes gemischt mit Mapping, später deprecated}
+    \label{fig:kinect_nodes}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.6\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/KinectMediaPipe_Testing.png}%
+    }
+    \caption{TouchDesigner Testing-Interface: Unterschied zwischen der Mediapipe Skeleton-Visualisierung (oben, pink) und der Kinect V2 Skeleton-Visualisierung (unten, grün)}
+    \label{fig:testing_interface}
+\end{figure}
+
 \subsection{Phase 2: Visual Requirements Engineering (März 2025)}
 
 \textbf{Stakeholder-Driven\\Design:}
@@ -40,6 +67,52 @@ Basierend auf Expertenberatung entwickelte ich zunächst ein komplexes Dual-Sour
     \item \textbf{Emotionale Responsivität:} Visual-Transformation entsprechend choreographischer Intentionen
 \end{itemize}
 
+\textbf{Konzeptuelle Visualisierungsansätze:}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/Sprint3_1.jpg}%
+    }
+    \caption{Erstes künsterlisches Konzept der Blobs: Blobs sind magnetisch anziehend/abstoßend zum Künstler}
+    \label{fig:scaling_concept}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/Sprint3_2.jpg}%
+    }
+    \caption{Künsterlisches Konzept, das übernommen wurde: Je nach Position des Performers werden die Blobs krisselig/blitzig oder ruhig dargestellt)}
+    \label{fig:external_positioning}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/Sprint3_3.jpg}%
+    }
+    \caption{Künsterlisches Konzept, das deprecated wurde, nachdem meine Shader-Solution nicht geklappt hatte: Magnetische Interaktion: Dynamische Visual-Performer-Relation}
+    \label{fig:magnetic_interaction}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.6\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/Sprint3_4.jpg}%
+    }
+    \caption{Künsterlisches Konzept, das übernommen wurde: der Performer ist in einem hellen Kreis, und bewegt sich}
+    \label{fig:movement_responsive}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/docupictures/Sprint3_5.jpg}%
+    }
+    \caption{Künsterlisches Konzept, das übernommen wurde: der Performer ist in einem hellen Kreis, und die Visuals brechen interaktiv mit seinen Extremitäten-Koordinaten passend aus}
+    \label{fig:composite_effects}
+\end{figure}
 
 \textbf{Technische Herausforderungen:}
 \raggedright Diese künstlerischen Anforderungen stellten das ursprüngliche System vor erhebliche Performance-Probleme. Die Dual-Source-Architektur erwies sich als zu ressourcenintensiv für komplexe Real-time-Visuals.

@@ -42,6 +42,15 @@
 \item \textbf{Dokumentations-Overhead:} Umfassende Dokumentation für interdisziplinäre Kommunikation
 \end{itemize}
 
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.9\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/HeadTracking_HQCamera.png}%
+    }
+    \caption{Kopfpartikel-Setup: Komplexe Kamera-Beamer-Ausrichtung mit hardcoded Offsets in particleGPU je nach Kamera-Winkel, was zu einer Erhöhung der Zeit zwischen Takes führte}
+    \label{fig:head_setup}
+\end{figure}
+
 \textbf{Kollaboration über Disziplingrenzen:}
 
 \textbf{Visuelle Kommunikation:}
@@ -67,6 +76,15 @@ Schlüsselmomente der Zusammenarbeit prägten die Entwicklungsrichtung:
 \textbf{Echtzeit-Anforderungen:}
 
 \raggedright Die Produktionsumgebung erforderte robuste Systemarchitektur mit minimalen Ausfallzeiten. Entwickelte Debug-Visualisierungen dienten gleichzeitig als Produktionsmonitoring-Tools. Die Echtzeit-Skelett-Overlays erwiesen sich als essentiell für die operative Systemüberwachung während der Aufnahmen.
+
+\begin{figure}[htbp]
+    \centering
+    \adjustbox{max width=0.8\textwidth, max height=0.8\textheight, keepaspectratio}{%
+        \includegraphics{images/onSetImages/DancerNotMediaPipeFoundCorrectlyWhenInClothOnFloor.png}%
+    }
+    \caption{Tracking-Problem: MediaPipe verliert Tänzer-Skelett-Erkennung bei Stoffverschleierung zu Beginn des Visuals -> Visuals werden manuell von mir anhand der Debug-Visualisierung an und dann zum Ende ausgeschaltet, wenn Ich sah, dass der Tänzer gut erkennt wird.}
+    \label{fig:cloth_tracking_issue}
+\end{figure}
 
 \textbf{Professionelle Koordination:}
 
